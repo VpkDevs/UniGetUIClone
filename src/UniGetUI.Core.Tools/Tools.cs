@@ -119,7 +119,6 @@ namespace UniGetUI.Core.Tools
                 StartInfo = new ProcessStartInfo
                 {
                     FileName = Path.Join(Environment.SystemDirectory, "where.exe"),
-                    Arguments = command,
                     UseShellExecute = false,
                     RedirectStandardOutput = true,
                     RedirectStandardError = true,
@@ -133,6 +132,7 @@ namespace UniGetUI.Core.Tools
                 process.StartInfo = UpdateEnvironmentVariables(process.StartInfo);
             }
             process.StartInfo.Environment["PATH"] = PATH;
+            process.StartInfo.ArgumentList.Add(command);
 
             try
             {
@@ -220,10 +220,24 @@ namespace UniGetUI.Core.Tools
             {
                 using Process p = new();
                 p.StartInfo.FileName = "cmd.exe";
-                p.StartInfo.Arguments = "/C start \"" + WindowTitle + "\" \"" + path + "\"";
-                p.StartInfo.UseShellExecute = true;
+                if (RunAsAdmin)
+                {
+                    // If RunAsAdmin is true, we must use ShellExecute for the "runas" verb.
+                    // When UseShellExecute is true, we cannot use ArgumentList.
+                    p.StartInfo.Arguments = "/C start \"\" \"" + path.Replace("\"", "\"\"") + "\"";
+                    p.StartInfo.UseShellExecute = true;
+                    p.StartInfo.Verb = "runas";
+                }
+                else
+                {
+                    p.StartInfo.ArgumentList.Add("/C");
+                    p.StartInfo.ArgumentList.Add("start");
+                    p.StartInfo.ArgumentList.Add(WindowTitle);
+                    p.StartInfo.ArgumentList.Add(path);
+                    p.StartInfo.UseShellExecute = false;
+                }
+
                 p.StartInfo.CreateNoWindow = true;
-                p.StartInfo.Verb = RunAsAdmin ? "runas" : "";
                 p.Start();
                 await p.WaitForExitAsync();
             }
@@ -476,20 +490,20 @@ namespace UniGetUI.Core.Tools
             {
                 _isCaching = true;
                 Logger.Info("Caching admin rights for process id " + Environment.ProcessId);
-                using Process p = new()
-                {
-                    StartInfo = new ProcessStartInfo
-                    {
-                        FileName = CoreData.ElevatorPath,
-                        Arguments = "cache on --pid " + Environment.ProcessId + " -d 1",
-                        UseShellExecute = false,
-                        RedirectStandardOutput = true,
-                        RedirectStandardError = true,
-                        RedirectStandardInput = true,
-                        CreateNoWindow = true,
-                        StandardOutputEncoding = Encoding.UTF8,
-                    }
-                };
+                using Process p = new();
+                p.StartInfo.FileName = CoreData.ElevatorPath;
+                p.StartInfo.ArgumentList.Add("cache");
+                p.StartInfo.ArgumentList.Add("on");
+                p.StartInfo.ArgumentList.Add("--pid");
+                p.StartInfo.ArgumentList.Add(Environment.ProcessId.ToString());
+                p.StartInfo.ArgumentList.Add("-d");
+                p.StartInfo.ArgumentList.Add("1");
+                p.StartInfo.UseShellExecute = false;
+                p.StartInfo.RedirectStandardOutput = true;
+                p.StartInfo.RedirectStandardError = true;
+                p.StartInfo.RedirectStandardInput = true;
+                p.StartInfo.CreateNoWindow = true;
+                p.StartInfo.StandardOutputEncoding = Encoding.UTF8;
                 p.Start();
                 await p.WaitForExitAsync();
                 _isCaching = false;
@@ -513,20 +527,18 @@ namespace UniGetUI.Core.Tools
             }
 
             Logger.Info("Resetting administrator rights cache for process id " + Environment.ProcessId);
-            using Process p = new()
-            {
-                StartInfo = new ProcessStartInfo
-                {
-                    FileName = CoreData.ElevatorPath,
-                    Arguments = "cache off --pid " + Environment.ProcessId,
-                    UseShellExecute = false,
-                    RedirectStandardOutput = true,
-                    RedirectStandardError = true,
-                    RedirectStandardInput = true,
-                    CreateNoWindow = true,
-                    StandardOutputEncoding = Encoding.UTF8,
-                }
-            };
+            using Process p = new();
+            p.StartInfo.FileName = CoreData.ElevatorPath;
+            p.StartInfo.ArgumentList.Add("cache");
+            p.StartInfo.ArgumentList.Add("off");
+            p.StartInfo.ArgumentList.Add("--pid");
+            p.StartInfo.ArgumentList.Add(Environment.ProcessId.ToString());
+            p.StartInfo.UseShellExecute = false;
+            p.StartInfo.RedirectStandardOutput = true;
+            p.StartInfo.RedirectStandardError = true;
+            p.StartInfo.RedirectStandardInput = true;
+            p.StartInfo.CreateNoWindow = true;
+            p.StartInfo.StandardOutputEncoding = Encoding.UTF8;
             p.Start();
             await p.WaitForExitAsync();
         }
@@ -553,12 +565,16 @@ namespace UniGetUI.Core.Tools
             var startInfo = new ProcessStartInfo
             {
                 FileName = "cmd.exe",
-                Arguments = $"/c mklink /D \"{linkPath}\" \"{targetPath}\"",
                 UseShellExecute = false,
                 CreateNoWindow = true,
                 RedirectStandardOutput = true,
                 RedirectStandardError = true
             };
+            startInfo.ArgumentList.Add("/c");
+            startInfo.ArgumentList.Add("mklink");
+            startInfo.ArgumentList.Add("/D");
+            startInfo.ArgumentList.Add(linkPath);
+            startInfo.ArgumentList.Add(targetPath);
 
             Process? p = Process.Start(startInfo);
             p?.WaitForExit();
@@ -706,7 +722,7 @@ namespace UniGetUI.Core.Tools
                     StartInfo = new()
                     {
                         FileName = "explorer.exe",
-                        Arguments = $"/select, \"{path}\"",
+                        Arguments = "/select, \"" + path.Replace("\"", "") + "\"",
                         UseShellExecute = true,
                         CreateNoWindow = true,
                     }
