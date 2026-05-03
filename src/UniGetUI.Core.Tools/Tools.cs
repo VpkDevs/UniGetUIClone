@@ -177,21 +177,26 @@ namespace UniGetUI.Core.Tools
             name =
                 name.Replace(".install", "").Replace(".portable", "").Replace("-", " ").Replace("_", " ").Split("/")[^1]
                     .Split(":")[0];
-            string newName = "";
-            for (int i = 0; i < name.Length; i++)
+
+            if (name.Length == 0) return "";
+
+            // Use StringBuilder to avoid unnecessary string allocations inside loop
+            System.Text.StringBuilder newName = new(name.Length);
+            newName.Append(char.ToUpper(name[0]));
+
+            for (int i = 1; i < name.Length; i++)
             {
-                if (i == 0 || name[i - 1] == ' ' || name[i - 1] == '[' /* for vcpkg options */)
+                if (name[i - 1] == ' ' || name[i - 1] == '[' /* for vcpkg options */)
                 {
-                    newName += name[i].ToString().ToUpper();
+                    newName.Append(char.ToUpper(name[i]));
                 }
                 else
                 {
-                    newName += name[i];
+                    newName.Append(name[i]);
                 }
             }
 
-            newName = newName.Replace(" [", "[").Replace("[", " [");
-            return newName;
+            return newName.ToString().Replace(" [", "[").Replace("[", " [");
         }
 
         /// <summary>
