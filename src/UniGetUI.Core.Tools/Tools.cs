@@ -174,22 +174,26 @@ namespace UniGetUI.Core.Tools
         /// <returns>The formatted string</returns>
         public static string FormatAsName(string name)
         {
+            if (string.IsNullOrEmpty(name)) return name;
+
             name =
                 name.Replace(".install", "").Replace(".portable", "").Replace("-", " ").Replace("_", " ").Split("/")[^1]
                     .Split(":")[0];
-            string newName = "";
+
+            char[] newNameChars = new char[name.Length];
             for (int i = 0; i < name.Length; i++)
             {
                 if (i == 0 || name[i - 1] == ' ' || name[i - 1] == '[' /* for vcpkg options */)
                 {
-                    newName += name[i].ToString().ToUpper();
+                    newNameChars[i] = char.ToUpperInvariant(name[i]);
                 }
                 else
                 {
-                    newName += name[i];
+                    newNameChars[i] = name[i];
                 }
             }
 
+            string newName = new string(newNameChars);
             newName = newName.Replace(" [", "[").Replace("[", " [");
             return newName;
         }
