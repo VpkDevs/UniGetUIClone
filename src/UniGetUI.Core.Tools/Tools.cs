@@ -376,24 +376,28 @@ namespace UniGetUI.Core.Tools
         {
             try
             {
-                char[] separators = ['.', '-', '/', '#'];
-                string[] versionItems = ["", "", "", ""];
+                if (string.IsNullOrEmpty(Version))
+                    return new Version(0, 0, 0, 0);
 
+                int[] numbers = { 0, 0, 0, 0 };
                 int dotCount = 0;
                 bool first = true;
 
                 foreach (char c in Version)
                 {
-                    if (char.IsDigit(c)) versionItems[dotCount] += c;
-                    else if (!first && separators.Contains(c)) if (dotCount < 3) dotCount++;
+                    if (char.IsDigit(c))
+                    {
+                        long val = (long)numbers[dotCount] * 10 + (c - '0');
+                        if (val <= int.MaxValue)
+                        {
+                            numbers[dotCount] = (int)val;
+                        }
+                    }
+                    else if (!first && (c == '.' || c == '-' || c == '/' || c == '#'))
+                    {
+                        if (dotCount < 3) dotCount++;
+                    }
                     first = false;
-                }
-
-                int[] numbers = { 0, 0, 0, 0 };
-                for (int i = 0; i < 4; i++)
-                {
-                    if (int.TryParse(versionItems[i], out int val))
-                        numbers[i] = val;
                 }
 
                 var ver = new Version(numbers[0], numbers[1], numbers[2], numbers[3]);
