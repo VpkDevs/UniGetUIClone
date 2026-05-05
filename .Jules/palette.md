@@ -1,0 +1,3 @@
+## 2024-05-18 - XAML Icon-Only Buttons
+**Learning:** Reusable `UserControl`s for icon-only buttons (like `DialogCloseButton`) in WinUI/XAML often lack default tooltip and automation text. Adding these directly in the control's constructor using `AutomationProperties.SetName` and `ToolTipService.SetToolTip` (along with localized strings) is a great pattern because it instantly cascades accessibility to everywhere the control is used.
+**Action:** Look for other reusable `UserControl` wrappers in XAML files that act as buttons, and ensure their constructors or XAML definitions provide proper Automation and ToolTip properties using `CoreTools.Translate`.
