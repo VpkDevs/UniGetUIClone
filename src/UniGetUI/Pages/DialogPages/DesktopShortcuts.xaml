@@ -186,7 +186,9 @@
                                 Height="32"
                                 Padding="0"
                                 Click="{x:Bind OpenShortcutPath}"
-                                IsEnabled="{x:Bind ExistsOnDisk}">
+                                IsEnabled="{x:Bind ExistsOnDisk}"
+                                AutomationProperties.Name="Open location"
+                                ToolTipService.ToolTip="Open location">
                                 <widgets:LocalIcon
                                     Width="24"
                                     Height="24"
@@ -197,7 +199,9 @@
                                 Width="32"
                                 Height="32"
                                 Padding="0"
-                                Click="{x:Bind ResetShortcut}">
+                                Click="{x:Bind ResetShortcut}"
+                                AutomationProperties.Name="Reset shortcut"
+                                ToolTipService.ToolTip="Reset shortcut">
                                 <FontIcon FontSize="16" Glyph="&#xE74D;" />
                             </Button>
                         </Grid>

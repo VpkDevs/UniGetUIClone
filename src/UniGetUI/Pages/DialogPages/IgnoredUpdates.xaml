@@ -157,7 +157,9 @@
                                 Width="32"
                                 Height="32"
                                 Padding="0"
-                                Click="{x:Bind RemoveFromIgnoredUpdates}">
+                                Click="{x:Bind RemoveFromIgnoredUpdates}"
+                                AutomationProperties.Name="Remove from ignored updates"
+                                ToolTipService.ToolTip="Remove from ignored updates">
                                 <FontIcon FontSize="16" Glyph="&#xE74D;" />
                             </Button>
                         </Grid>
