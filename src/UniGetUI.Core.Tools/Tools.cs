@@ -174,24 +174,37 @@ namespace UniGetUI.Core.Tools
         /// <returns>The formatted string</returns>
         public static string FormatAsName(string name)
         {
-            name =
-                name.Replace(".install", "").Replace(".portable", "").Replace("-", " ").Replace("_", " ").Split("/")[^1]
-                    .Split(":")[0];
-            string newName = "";
+            if (string.IsNullOrEmpty(name)) return name;
+
+            name = name.Replace(".install", "")
+                       .Replace(".portable", "")
+                       .Replace("-", " ")
+                       .Replace("_", " ");
+
+            int lastSlash = name.LastIndexOf('/');
+            if (lastSlash >= 0) name = name.Substring(lastSlash + 1);
+
+            int firstColon = name.IndexOf(':');
+            if (firstColon >= 0) name = name.Substring(0, firstColon);
+
+            // ⚡ Bolt: Using StringBuilder to prevent O(N^2) memory allocations from string concatenations
+            StringBuilder newName = new StringBuilder(name.Length + 2);
             for (int i = 0; i < name.Length; i++)
             {
-                if (i == 0 || name[i - 1] == ' ' || name[i - 1] == '[' /* for vcpkg options */)
+                if (i == 0 || name[i - 1] == ' ' || name[i - 1] == '[')
                 {
-                    newName += name[i].ToString().ToUpper();
+                    newName.Append(char.ToUpper(name[i]));
                 }
                 else
                 {
-                    newName += name[i];
+                    newName.Append(name[i]);
                 }
             }
 
-            newName = newName.Replace(" [", "[").Replace("[", " [");
-            return newName;
+            newName.Replace(" [", "[");
+            newName.Replace("[", " [");
+
+            return newName.ToString();
         }
 
         /// <summary>
@@ -376,28 +389,36 @@ namespace UniGetUI.Core.Tools
         {
             try
             {
-                char[] separators = ['.', '-', '/', '#'];
-                string[] versionItems = ["", "", "", ""];
+                if (string.IsNullOrEmpty(Version))
+                    return new Version(0, 0, 0, 0);
 
+                int[] numbers = { 0, 0, 0, 0 };
                 int dotCount = 0;
                 bool first = true;
 
+                // ⚡ Bolt: Zero-allocation string parsing to optimize high-frequency version comparisons
                 foreach (char c in Version)
                 {
-                    if (char.IsDigit(c)) versionItems[dotCount] += c;
-                    else if (!first && separators.Contains(c)) if (dotCount < 3) dotCount++;
+                    if (c >= '0' && c <= '9')
+                    {
+                        long val = (long)numbers[dotCount] * 10 + (c - '0');
+                        if (val <= int.MaxValue)
+                        {
+                            numbers[dotCount] = (int)val;
+                        }
+                        else
+                        {
+                            numbers[dotCount] = int.MaxValue;
+                        }
+                    }
+                    else if (!first && (c == '.' || c == '-' || c == '/' || c == '#'))
+                    {
+                        if (dotCount < 3) dotCount++;
+                    }
                     first = false;
                 }
 
-                int[] numbers = { 0, 0, 0, 0 };
-                for (int i = 0; i < 4; i++)
-                {
-                    if (int.TryParse(versionItems[i], out int val))
-                        numbers[i] = val;
-                }
-
-                var ver = new Version(numbers[0], numbers[1], numbers[2], numbers[3]);
-                return ver;
+                return new Version(numbers[0], numbers[1], numbers[2], numbers[3]);
             }
             catch
             {

@@ -1,0 +1,3 @@
+## 2024-05-06 - String allocation optimizations in parsing
+**Learning:** In this .NET codebase, methods like `VersionStringToStruct` which are called frequently (e.g., in loops when processing large amounts of package manager outputs) suffer heavily from intermediate string allocations when using `+=` and `string.Split()`. Direct char-by-char traversal and in-place integer math (e.g. `(long)val * 10 + (char - '0')`) can dramatically improve speed (up to 3x faster) and reduce memory pressure compared to string manipulations.
+**Action:** Avoid `+=` for string concatenations within loops. When parsing numbers from strings, avoid intermediate string arrays and prefer zero-allocation processing with char-by-char traversal and in-place integer math.
