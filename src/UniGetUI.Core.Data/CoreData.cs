@@ -371,17 +371,21 @@ namespace UniGetUI.Core.Data
                 };
                 p.Start();
                 string contents = p.StandardOutput.ReadToEnd();
-                string purifiedString = "";
 
-                foreach (var c in contents.Split(':')[^1].Trim())
+                int codePage = 0;
+                int colonIndex = contents.LastIndexOf(':');
+                int startIndex = colonIndex >= 0 ? colonIndex : 0;
+
+                for (int i = startIndex; i < contents.Length; i++)
                 {
+                    char c = contents[i];
                     if (c >= '0' && c <= '9')
                     {
-                        purifiedString += c;
+                        codePage = codePage * 10 + (c - '0');
                     }
                 }
 
-                return int.Parse(purifiedString);
+                return codePage;
             }
             catch (Exception e)
             {

@@ -177,21 +177,23 @@ namespace UniGetUI.Core.Tools
             name =
                 name.Replace(".install", "").Replace(".portable", "").Replace("-", " ").Replace("_", " ").Split("/")[^1]
                     .Split(":")[0];
-            string newName = "";
+
+            if (string.IsNullOrEmpty(name)) return name;
+
+            char[] newName = new char[name.Length];
             for (int i = 0; i < name.Length; i++)
             {
                 if (i == 0 || name[i - 1] == ' ' || name[i - 1] == '[' /* for vcpkg options */)
                 {
-                    newName += name[i].ToString().ToUpper();
+                    newName[i] = char.ToUpper(name[i]);
                 }
                 else
                 {
-                    newName += name[i];
+                    newName[i] = name[i];
                 }
             }
 
-            newName = newName.Replace(" [", "[").Replace("[", " [");
-            return newName;
+            return new string(newName).Replace(" [", "[").Replace("[", " [");
         }
 
         /// <summary>
@@ -376,27 +378,30 @@ namespace UniGetUI.Core.Tools
         {
             try
             {
-                char[] separators = ['.', '-', '/', '#'];
-                string[] versionItems = ["", "", "", ""];
+                long[] numbers = { 0, 0, 0, 0 };
 
                 int dotCount = 0;
                 bool first = true;
 
                 foreach (char c in Version)
                 {
-                    if (char.IsDigit(c)) versionItems[dotCount] += c;
-                    else if (!first && separators.Contains(c)) if (dotCount < 3) dotCount++;
+                    if (c >= '0' && c <= '9')
+                    {
+                        numbers[dotCount] = numbers[dotCount] * 10 + (c - '0');
+                    }
+                    else if (!first && (c == '.' || c == '-' || c == '/' || c == '#'))
+                    {
+                        if (dotCount < 3) dotCount++;
+                    }
                     first = false;
                 }
 
-                int[] numbers = { 0, 0, 0, 0 };
                 for (int i = 0; i < 4; i++)
                 {
-                    if (int.TryParse(versionItems[i], out int val))
-                        numbers[i] = val;
+                    if (numbers[i] > int.MaxValue) numbers[i] = 0;
                 }
 
-                var ver = new Version(numbers[0], numbers[1], numbers[2], numbers[3]);
+                var ver = new Version((int)numbers[0], (int)numbers[1], (int)numbers[2], (int)numbers[3]);
                 return ver;
             }
             catch
