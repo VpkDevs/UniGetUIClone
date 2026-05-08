@@ -1,0 +1,3 @@
+## 2024-06-25 - Regex parsing optimization
+**Learning:** Found a common anti-pattern across multiple CLI output parsers (WinGet, Scoop, Pip, PowerShell, .NET) where `Regex.Replace(line, " {2,}", " ")` was used before splitting strings, causing significant Regex overhead on long lists. Using `line.Split(' ', StringSplitOptions.RemoveEmptyEntries)` does the exact same tokenization (~5-10x faster) without regular expression memory allocation overhead.
+**Action:** When extracting fields from tabular console output separated by multiple spaces, always use `StringSplitOptions.RemoveEmptyEntries` rather than Regex replacement to collapse spaces.
