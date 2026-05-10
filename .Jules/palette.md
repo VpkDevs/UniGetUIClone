@@ -1,0 +1,3 @@
+## 2026-05-10 - [Programmatic A11y for Icon-Only Buttons in WinUI]
+**Learning:** Icon-only buttons in WinUI defined in XAML often lack localizable `AutomationProperties.Name` attributes if relying solely on static markup. Using hardcoded `AutomationProperties.HelpText` causes accessibility flaws for non-English screen reader users.
+**Action:** Always verify icon-only buttons have localized `ToolTipService.ToolTip` and `AutomationProperties.Name`, preferably set dynamically in code-behind (`AbstractPackagesPage.xaml.cs`) using `CoreTools.Translate()` when the framework lacks straightforward XAML-based localization bindings.
