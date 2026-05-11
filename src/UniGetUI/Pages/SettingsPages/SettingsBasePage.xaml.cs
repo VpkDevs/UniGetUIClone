@@ -1,4 +1,5 @@
 using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Automation;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Navigation;
 using UniGetUI.Core.Tools;
@@ -23,6 +24,10 @@ namespace UniGetUI.Pages.SettingsPages
         {
             IsManagers = isManagers;
             this.InitializeComponent();
+
+            AutomationProperties.SetName(BackButton, CoreTools.Translate("Back"));
+            ToolTipService.SetToolTip(BackButton, CoreTools.Translate("Back"));
+
             BackButton.Click += (_, _) =>
             {
                 if (MainNavigationFrame.Content is ManagersHomepage or SettingsHomepage) MainApp.Instance.MainWindow.GoBack();

@@ -6,6 +6,7 @@ using Microsoft.UI.Input;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Input;
+using Microsoft.UI.Xaml.Automation;
 using UniGetUI.Core.SettingsEngine;
 using UniGetUI.Core.Tools;
 using UniGetUI.Interface.Widgets;
@@ -246,6 +247,11 @@ namespace UniGetUI.Interface
 
             MainTitle.Text = data.PageTitle;
             HeaderIcon.Glyph = data.Glyph;
+
+            AutomationProperties.SetName(ReloadButton, CoreTools.Translate("Reload packages"));
+            ToolTipService.SetToolTip(ReloadButton, CoreTools.Translate("Reload packages"));
+            AutomationProperties.SetName(MegaFindButton, CoreTools.Translate("Search"));
+            ToolTipService.SetToolTip(MegaFindButton, CoreTools.Translate("Search"));
 
             SelectAllCheckBox.IsChecked = data.PackagesAreCheckedByDefault;
             QuerySimilarResultsRadio.IsEnabled = !data.DisableSuggestedResultsRadio;

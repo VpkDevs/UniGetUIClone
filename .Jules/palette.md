@@ -1,0 +1,3 @@
+## 2026-05-11 - Improve Localization for Screen Readers on Icon-Only Buttons
+**Learning:** Hardcoding `AutomationProperties.HelpText` or `AutomationProperties.Name` in XAML for primary labels on icon-only buttons prevents proper localization for screen readers.
+**Action:** When creating icon-only buttons in WinUI, always set `AutomationProperties.SetName` and `ToolTipService.SetToolTip` dynamically in the C# code-behind using `CoreTools.Translate()` to ensure both screen reader users and visual users get properly localized contextual hints. Remember to include `using Microsoft.UI.Xaml.Automation;`.
