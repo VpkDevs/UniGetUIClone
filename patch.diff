@@ -1,0 +1,14 @@
+--- src/UniGetUI/Pages/SoftwarePages/AbstractPackagesPage.xaml.cs
++++ src/UniGetUI/Pages/SoftwarePages/AbstractPackagesPage.xaml.cs
+@@ -277,6 +277,12 @@
+             LocalPackagesNode.Content = CoreTools.Translate("Local");
+             LocalPackagesNode.IsExpanded = false;
+
++            AutomationProperties.SetName(ReloadButton, CoreTools.Translate("Reload packages"));
++            ToolTipService.SetToolTip(ReloadButton, CoreTools.Translate("Reload packages"));
++
++            AutomationProperties.SetName(MegaFindButton, CoreTools.Translate("Search"));
++            ToolTipService.SetToolTip(MegaFindButton, CoreTools.Translate("Search"));
++
+             ReloadButton.Click += async (_, _) => await LoadPackages();
+             ReloadButton.Visibility = DISABLE_RELOAD ? Visibility.Collapsed : Visibility.Visible;
