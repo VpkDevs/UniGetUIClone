@@ -227,7 +227,8 @@ namespace UniGetUI.PackageEngine.Managers.ScoopManager
                 }
                 else if (line.Trim() != "")
                 {
-                    string[] elements = Regex.Replace(line, " {2,}", " ").Trim().Split(" ");
+                    // Bolt: Optimized tokenization natively without regex
+                    string[] elements = line.Split(' ', StringSplitOptions.RemoveEmptyEntries);
                     if (elements.Length < 3)
                     {
                         continue;
@@ -305,7 +306,8 @@ namespace UniGetUI.PackageEngine.Managers.ScoopManager
                 }
                 else if (line.Trim() != "")
                 {
-                    string[] elements = Regex.Replace(line, " {2,}", " ").Trim().Split(" ");
+                    // Bolt: Optimized tokenization natively without regex
+                    string[] elements = line.Split(' ', StringSplitOptions.RemoveEmptyEntries);
                     if (elements.Length < 3)
                         continue;
 
