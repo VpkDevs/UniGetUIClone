@@ -1,5 +1,6 @@
 using System.Diagnostics;
 using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Automation;
 using Microsoft.UI.Xaml.Controls;
 using UniGetUI.Core.Tools;
 using UniGetUI.Interface.Pages;
@@ -21,6 +22,19 @@ namespace UniGetUI.Interface.Dialogs
         public HelpPage()
         {
             InitializeComponent();
+
+            AutomationProperties.SetName(BackButton, CoreTools.Translate("Go back"));
+            ToolTipService.SetToolTip(BackButton, CoreTools.Translate("Go back"));
+
+            AutomationProperties.SetName(RightButton, CoreTools.Translate("Go forward"));
+            ToolTipService.SetToolTip(RightButton, CoreTools.Translate("Go forward"));
+
+            AutomationProperties.SetName(HomeButton, CoreTools.Translate("Home"));
+            ToolTipService.SetToolTip(HomeButton, CoreTools.Translate("Home"));
+
+            AutomationProperties.SetName(ReloadButton, CoreTools.Translate("Reload"));
+            ToolTipService.SetToolTip(ReloadButton, CoreTools.Translate("Reload"));
+
             _ = InitializeWebView();
         }
 
