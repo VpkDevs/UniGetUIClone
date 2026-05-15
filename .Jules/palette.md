@@ -1,0 +1,3 @@
+## 2024-05-24 - Accessibility labels for custom WinUI icon-only buttons
+**Learning:** In WinUI 3 codebases, standard XAML button templates don't inherit accessible properties down through internal elements (like `widgets:LocalIcon`). Trying to attach properties natively via pure XAML bindings with standard conventions may not bubble up properly or support immediate localization using the `CoreTools` engine.
+**Action:** When implementing icon-only buttons in WinUI component classes (like DialogCloseButton.xaml.cs), assign `AutomationProperties.SetName` and `ToolTipService.SetToolTip` programmatically in the constructor to properly register the accessibility tree, while supporting immediate, synchronous app translations.
