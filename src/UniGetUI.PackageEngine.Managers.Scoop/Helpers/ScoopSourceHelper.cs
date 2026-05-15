@@ -73,7 +73,8 @@ namespace UniGetUI.PackageEngine.Managers.ScoopManager
                     }
                     else if (line.Trim() != "")
                     {
-                        string[] elements = Regex.Replace(Regex.Replace(line, "[1234567890 :.-][AaPp][Mm][\\W]", "").Trim(), " {2,}", " ").Split(' ');
+                        string[] elements = /* Performance optimization: Using StringSplitOptions.RemoveEmptyEntries avoids Regex whitespace collapsing overhead */
+                        Regex.Replace(line, "[1234567890 :.-][AaPp][Mm][\\W]", "").Split(' ', StringSplitOptions.RemoveEmptyEntries);
                         if (elements.Length >= 5)
                         {
                             if (!elements[1].Contains("https://") && !elements[1].Contains("http://"))

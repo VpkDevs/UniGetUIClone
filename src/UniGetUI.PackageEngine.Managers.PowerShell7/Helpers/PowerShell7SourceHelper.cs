@@ -83,7 +83,8 @@ namespace UniGetUI.PackageEngine.Managers.PowerShell7Manager
                     }
                     else
                     {
-                        string[] parts = Regex.Replace(line.Trim(), " {2,}", " ").Split(' ');
+                        string[] parts = /* Performance optimization: Using StringSplitOptions.RemoveEmptyEntries avoids Regex allocation overhead */
+                        line.Split(' ', StringSplitOptions.RemoveEmptyEntries);
                         if (parts.Length >= 2)
                         {
                             string uri = Regex.Match(line, "https?:\\/\\/([\\w%-]+\\.)+[\\w%-]+(\\/[\\w%-]+)+\\/?").Value;
