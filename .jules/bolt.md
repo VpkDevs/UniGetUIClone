@@ -1,0 +1,3 @@
+## 2024-05-17 - Tabular CLI parsing string splits
+**Learning:** The codebase heavily relies on parsing tabular CLI output from package managers, often pre-processing lines with `Regex.Replace(line, " {2,}", " ")` or `Regex.Replace(line, @"\s+", " ")` before calling `Split(' ')`. This allocates unnecessary strings and incurs heavy regex overhead in hot loops.
+**Action:** Replace these patterns with `line.Split((char[])null, StringSplitOptions.RemoveEmptyEntries)` (for all whitespace) or `line.Split(' ', StringSplitOptions.RemoveEmptyEntries)` (for spaces) to avoid regex overhead and improve parsing performance.

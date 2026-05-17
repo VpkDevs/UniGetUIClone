@@ -1,0 +1,25 @@
+--- src/UniGetUI.PackageEngine.Managers.Vcpkg/Vcpkg.cs ---
+126: string[] PackageData = Regex.Replace(line, @"\s+", " ").Split(' ');
+200: string[] PackageData = Regex.Replace(line, @"\s+", " ").Split(' ');
+260: string[] PackageData = Regex.Replace(line, @"\s+", " ").Split(' ');
+--- src/UniGetUI.PackageEngine.Managers.Vcpkg/Helpers/VcpkgPkgDetailsHelper.cs ---
+--- src/UniGetUI.PackageEngine.Managers.Dotnet/DotNet.cs ---
+95: string[] elements = Regex.Replace(line, " {2,}", " ").Split(' ');
+--- src/UniGetUI.PackageEngine.Managers.PowerShell/PowerShell.cs ---
+97: string[] elements = Regex.Replace(line, " {2,}", " ").Split(' ');
+--- src/UniGetUI.PackageEngine.Managers.PowerShell/Helpers/PowerShellSourceHelper.cs ---
+85: string[] parts = Regex.Replace(line.Trim(), " {2,}", " ").Split(' ');
+--- src/UniGetUI.PackageEngine.Managers.Scoop/Scoop.cs ---
+230: string[] elements = Regex.Replace(line, " {2,}", " ").Trim().Split(" ");
+308: string[] elements = Regex.Replace(line, " {2,}", " ").Trim().Split(" ");
+--- src/UniGetUI.PackageEngine.Managers.Scoop/Helpers/ScoopSourceHelper.cs ---
+76: string[] elements = Regex.Replace(Regex.Replace(line, "[1234567890 :.-][AaPp][Mm][\\W]", "").Trim(), " {2,}", " ").Split(' ');
+--- src/UniGetUI.PackageEngine.Managers.PowerShell7/PowerShell7.cs ---
+101: string[] elements = Regex.Replace(line, " {2,}", " ").Split(' ');
+--- src/UniGetUI.PackageEngine.Managers.PowerShell7/Helpers/PowerShell7SourceHelper.cs ---
+86: string[] parts = Regex.Replace(line.Trim(), " {2,}", " ").Split(' ');
+--- src/UniGetUI.PackageEngine.Managers.Pip/Pip.cs ---
+222: string[] elements = Regex.Replace(line, " {2,}", " ").Split(' ');
+286: string[] elements = Regex.Replace(line, " {2,}", " ").Split(' ');
+--- src/UniGetUI.PackageEngine.Managers.WinGet/ClientHelpers/BundledWinGetHelper.cs ---
+694: string[] parts = Regex.Replace(line.Trim(), " {2,}", " ").Split(' ');
