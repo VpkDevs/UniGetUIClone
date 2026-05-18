@@ -1,0 +1,3 @@
+## 2024-05-24 - Avoid Regex for basic whitespace splitting
+**Learning:** Using `Regex.Replace(line, " {2,}", " ")` or `Regex.Replace(line, @"\s+", " ")` before splitting a string is much slower and allocates more memory compared to `string.Split(' ', StringSplitOptions.RemoveEmptyEntries)` or `string.Split((char[])null, StringSplitOptions.RemoveEmptyEntries)`.
+**Action:** Replace `Regex.Replace(..., " {2,}", " ").Split(...)` with `Split(' ', StringSplitOptions.RemoveEmptyEntries)` and `Regex.Replace(..., @"\s+", " ").Split(...)` with `Split((char[])null, StringSplitOptions.RemoveEmptyEntries)` in hot paths like package parsing logic.
