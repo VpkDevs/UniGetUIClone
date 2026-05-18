@@ -26,6 +26,7 @@ using Windows.UI;
 using Microsoft.UI.Xaml.Controls.Primitives;
 using UniGetUI.Interface.Enums;
 using UniGetUI.Pages.PageInterfaces;
+using Microsoft.UI.Xaml.Automation;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -277,6 +278,8 @@ namespace UniGetUI.Interface
 
             ReloadButton.Click += async (_, _) => await LoadPackages();
             ReloadButton.Visibility = DISABLE_RELOAD ? Visibility.Collapsed : Visibility.Visible;
+            ToolTipService.SetToolTip(ReloadButton, CoreTools.Translate("Reload packages"));
+            AutomationProperties.SetName(ReloadButton, CoreTools.Translate("Reload packages"));
 
 
             // Handle the Enter Pressed event on the MegaQueryBlock
@@ -298,6 +301,8 @@ namespace UniGetUI.Interface
                 QueryBlock.Text = MegaQueryBlock.Text.Trim();
                 FilterPackages(true);
             };
+            ToolTipService.SetToolTip(MegaFindButton, CoreTools.Translate("Search"));
+            AutomationProperties.SetName(MegaFindButton, CoreTools.Translate("Search"));
 
             // Handle when a source is clicked
             SourcesTreeView.Tapped += (_, e) =>

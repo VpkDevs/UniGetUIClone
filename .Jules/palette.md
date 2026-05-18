@@ -1,0 +1,3 @@
+## 2026-05-18 - Localizing Accessible Names for Icon-Only Buttons in WinUI
+**Learning:** In WinUI, setting `AutomationProperties.HelpText` or `AutomationProperties.Name` statically in XAML bypasses the localization system for accessible names and tooltips. Icon-only buttons must explicitly assign these properties using C# code-behind with a localization tool (like `CoreTools.Translate()`) combined with `AutomationProperties.SetName` and `ToolTipService.SetToolTip`.
+**Action:** Always verify if an icon-only button is properly localized for screen readers and tooltips in WinUI applications. Remove hardcoded XAML accessibility strings and set them programmatically in the code-behind using the application's localization mechanism.
