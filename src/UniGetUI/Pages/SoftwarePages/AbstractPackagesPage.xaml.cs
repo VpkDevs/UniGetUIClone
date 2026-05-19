@@ -24,6 +24,7 @@ using Microsoft.UI;
 using Microsoft.UI.Xaml.Media;
 using Windows.UI;
 using Microsoft.UI.Xaml.Controls.Primitives;
+using Microsoft.UI.Xaml.Automation;
 using UniGetUI.Interface.Enums;
 using UniGetUI.Pages.PageInterfaces;
 
@@ -277,6 +278,8 @@ namespace UniGetUI.Interface
 
             ReloadButton.Click += async (_, _) => await LoadPackages();
             ReloadButton.Visibility = DISABLE_RELOAD ? Visibility.Collapsed : Visibility.Visible;
+            AutomationProperties.SetName(ReloadButton, CoreTools.Translate("Reload packages"));
+            ToolTipService.SetToolTip(ReloadButton, CoreTools.Translate("Reload packages"));
 
 
             // Handle the Enter Pressed event on the MegaQueryBlock
@@ -292,6 +295,9 @@ namespace UniGetUI.Interface
             };
 
             // Hande the MegaQueryBlock search button click
+            AutomationProperties.SetName(MegaFindButton, CoreTools.Translate("Search"));
+            ToolTipService.SetToolTip(MegaFindButton, CoreTools.Translate("Search"));
+
             MegaFindButton.Click += (_, _) =>
             {
                 MegaQueryBlockGrid.Visibility = Visibility.Collapsed;
