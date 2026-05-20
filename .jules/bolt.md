@@ -1,0 +1,3 @@
+## 2024-05-18 - Avoid Regex for basic CLI output whitespace parsing
+**Learning:** In C#, using `Regex.Replace(line, " {2,}", " ").Split(' ')` inside tight loops (like parsing tabular CLI output from package managers) incurs significant Regex compilation and execution overhead. `String.Split((char[])null, StringSplitOptions.RemoveEmptyEntries)` achieves the exact same result natively by treating all contiguous whitespace characters as delimiters.
+**Action:** Always prefer `StringSplitOptions.RemoveEmptyEntries` over Regex pre-processing for standard tabular whitespace tokenization to minimize CPU and memory allocation overhead.
