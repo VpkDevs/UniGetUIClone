@@ -1,0 +1,3 @@
+## 2026-05-21 - Tokenizing Tabular CLI Output
+**Learning:** The codebase heavily relies on parsing tabular CLI output from package managers. A common anti-pattern was using `Regex.Replace(line, @"\s+", " ").Split(' ')` or `Regex.Replace(line, " {2,}", " ").Split(' ')` to tokenize lines. This introduces significant Regular Expression allocation and execution overhead inside loops parsing thousands of lines.
+**Action:** When tokenizing tabular CLI output separated by multiple spaces, always use `line.Split(' ', StringSplitOptions.RemoveEmptyEntries)` or `line.Split((char[])null, StringSplitOptions.RemoveEmptyEntries)`. This avoids regular expressions entirely and significantly improves performance.

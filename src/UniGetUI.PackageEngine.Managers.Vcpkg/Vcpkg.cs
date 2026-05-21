@@ -123,7 +123,7 @@ namespace UniGetUI.PackageEngine.Managers.VcpkgManager
                 // (note that the suboptions, with the `name[build-option]` syntax have no version)
 
                 //                                           to get rid of many spaces of padding
-                string[] PackageData = Regex.Replace(line, @"\s+", " ").Split(' ');
+                string[] PackageData = line.Split((char[])null, StringSplitOptions.RemoveEmptyEntries);
                 string PackageId = PackageData[0]; // the id with the suboption
                 string PackageName = PackageId; // the actual name (id - suboption)
                 string
@@ -197,7 +197,7 @@ namespace UniGetUI.PackageEngine.Managers.VcpkgManager
                 if (line.StartsWith('\t'))
                 {
                     line = line.Substring(1);
-                    string[] PackageData = Regex.Replace(line, @"\s+", " ").Split(' ');
+                    string[] PackageData = line.Split((char[])null, StringSplitOptions.RemoveEmptyEntries);
                     string PackageId = PackageData[0];
                     string PackageName = PackageId.Split(':')[0],
                         PackageTriplet = PackageId.Split(':')[1],
@@ -257,7 +257,7 @@ namespace UniGetUI.PackageEngine.Managers.VcpkgManager
                 // (note that the suboptions, with the `name[build-option]` syntax have no version)
 
                 //                                           to get rid of many spaces of padding
-                string[] PackageData = Regex.Replace(line, @"\s+", " ").Split(' ');
+                string[] PackageData = line.Split((char[])null, StringSplitOptions.RemoveEmptyEntries);
                 string PackageId = PackageData[0];
                 string PackageName = PackageId.Split(':')[0],
                     PackageTriplet = PackageId.Split(':')[1],

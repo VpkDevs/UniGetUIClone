@@ -219,7 +219,7 @@ namespace UniGetUI.PackageEngine.Managers.PipManager
                 }
                 else
                 {
-                    string[] elements = Regex.Replace(line, " {2,}", " ").Split(' ');
+                    string[] elements = line.Split((char[])null, StringSplitOptions.RemoveEmptyEntries);
                     if (elements.Length < 3)
                     {
                         continue;
@@ -283,7 +283,7 @@ namespace UniGetUI.PackageEngine.Managers.PipManager
                 }
                 else
                 {
-                    string[] elements = Regex.Replace(line, " {2,}", " ").Split(' ');
+                    string[] elements = line.Split((char[])null, StringSplitOptions.RemoveEmptyEntries);
                     if (elements.Length < 2)
                     {
                         continue;
