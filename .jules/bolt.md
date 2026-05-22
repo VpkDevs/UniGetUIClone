@@ -1,0 +1,3 @@
+## $(date +%Y-%m-%d) - Optimize tabular CLI output parsing
+**Learning:** Parsing tabular CLI output using `Regex.Replace(line, " {2,}", " ").Split(' ')` or `Regex.Replace(line, @"\s+", " ").Split(' ')` is computationally expensive and allocates many intermediate strings and Regex states.
+**Action:** When splitting text by multiple spaces, use `line.Split(' ', StringSplitOptions.RemoveEmptyEntries)` (for spaces) or `line.Split((char[])null, StringSplitOptions.RemoveEmptyEntries)` (for all whitespace). This is completely zero-allocation for the separator logic and directly built into .NET, providing a measurable reduction in memory pressure and parsing time when iterating over thousands of lines of output.
