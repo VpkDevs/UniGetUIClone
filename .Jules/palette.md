@@ -1,0 +1,3 @@
+## 2024-05-14 - Dynamically Localized ARIA Labels for Icon Buttons
+**Learning:** In WinUI applications using `CoreTools.Translate()`, hardcoding `AutomationProperties.HelpText` or `ToolTipService.ToolTip` in XAML means the accessibility labels aren't localized. Icon-only buttons (like the Reload button or MegaQuery search button) lose accessibility context for non-English screen reader users.
+**Action:** Remove hardcoded `AutomationProperties.HelpText` from XAML for icon-only buttons. Set `AutomationProperties.SetName` and `ToolTipService.SetToolTip` programmatically in the C# code-behind using `CoreTools.Translate()` to ensure localization and screen reader accessibility are maintained. Import `Microsoft.UI.Xaml.Automation` namespace.

@@ -26,6 +26,7 @@ using Windows.UI;
 using Microsoft.UI.Xaml.Controls.Primitives;
 using UniGetUI.Interface.Enums;
 using UniGetUI.Pages.PageInterfaces;
+using Microsoft.UI.Xaml.Automation;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -241,8 +242,17 @@ namespace UniGetUI.Interface
             GenerateHeaderBarTitles();
 
             ToolTipService.SetToolTip(Selector_List, CoreTools.Translate("List"));
+            AutomationProperties.SetName(Selector_List, CoreTools.Translate("List"));
             ToolTipService.SetToolTip(Selector_Grid, CoreTools.Translate("Grid"));
+            AutomationProperties.SetName(Selector_Grid, CoreTools.Translate("Grid"));
             ToolTipService.SetToolTip(Selector_Icons, CoreTools.Translate("Icons"));
+            AutomationProperties.SetName(Selector_Icons, CoreTools.Translate("Icons"));
+
+            ToolTipService.SetToolTip(ReloadButton, CoreTools.Translate("Reload packages"));
+            AutomationProperties.SetName(ReloadButton, CoreTools.Translate("Reload packages"));
+
+            ToolTipService.SetToolTip(MegaFindButton, CoreTools.Translate("Search"));
+            AutomationProperties.SetName(MegaFindButton, CoreTools.Translate("Search"));
 
             MainTitle.Text = data.PageTitle;
             HeaderIcon.Glyph = data.Glyph;
