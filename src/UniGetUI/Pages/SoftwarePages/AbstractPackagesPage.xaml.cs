@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Globalization;
 using Microsoft.UI.Input;
 using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Automation;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Input;
 using UniGetUI.Core.SettingsEngine;
@@ -277,6 +278,8 @@ namespace UniGetUI.Interface
 
             ReloadButton.Click += async (_, _) => await LoadPackages();
             ReloadButton.Visibility = DISABLE_RELOAD ? Visibility.Collapsed : Visibility.Visible;
+            ToolTipService.SetToolTip(ReloadButton, CoreTools.Translate("Reload packages"));
+            AutomationProperties.SetName(ReloadButton, CoreTools.Translate("Reload packages"));
 
 
             // Handle the Enter Pressed event on the MegaQueryBlock
@@ -298,6 +301,8 @@ namespace UniGetUI.Interface
                 QueryBlock.Text = MegaQueryBlock.Text.Trim();
                 FilterPackages(true);
             };
+            ToolTipService.SetToolTip(MegaFindButton, CoreTools.Translate("Search"));
+            AutomationProperties.SetName(MegaFindButton, CoreTools.Translate("Search"));
 
             // Handle when a source is clicked
             SourcesTreeView.Tapped += (_, e) =>
