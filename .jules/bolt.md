@@ -1,0 +1,3 @@
+## 2024-05-24 - [Remove RegEx allocations for whitespace splitting in PackageEngine]
+**Learning:** Using `Regex.Replace(line, " {2,}", " ")` or `Regex.Replace(line, @"\s+", " ")` before splitting strings for tabular CLI parsing introduces significant performance overhead due to regular expression compilation and string allocation inside inner loops in the `PackageEngine`.
+**Action:** Replace `Regex.Replace(...)` patterns with `line.Split(' ', StringSplitOptions.RemoveEmptyEntries)` or `line.Split((char[])null, StringSplitOptions.RemoveEmptyEntries)` to skip empty entries directly during the split operation, effectively ignoring duplicate whitespace without prior string manipulation.
