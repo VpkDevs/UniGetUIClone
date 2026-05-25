@@ -82,7 +82,8 @@ namespace UniGetUI.PackageEngine.Managers.PowerShellManager
                     }
                     else
                     {
-                        string[] parts = Regex.Replace(line.Trim(), " {2,}", " ").Split(' ');
+                        // Optimized parsing: avoid Regex allocation by using StringSplitOptions.RemoveEmptyEntries
+                        string[] parts = line.Split(' ', StringSplitOptions.RemoveEmptyEntries);
                         if (parts.Length >= 3)
                         {
                             sources.Add(new ManagerSource(Manager, parts[0].Trim(), new Uri(parts[2].Trim())));

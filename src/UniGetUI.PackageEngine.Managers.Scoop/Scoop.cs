@@ -227,7 +227,8 @@ namespace UniGetUI.PackageEngine.Managers.ScoopManager
                 }
                 else if (line.Trim() != "")
                 {
-                    string[] elements = Regex.Replace(line, " {2,}", " ").Trim().Split(" ");
+                    // Optimized parsing: avoid Regex allocation by using StringSplitOptions.RemoveEmptyEntries
+                    string[] elements = line.Split(' ', StringSplitOptions.RemoveEmptyEntries);
                     if (elements.Length < 3)
                     {
                         continue;
@@ -305,7 +306,8 @@ namespace UniGetUI.PackageEngine.Managers.ScoopManager
                 }
                 else if (line.Trim() != "")
                 {
-                    string[] elements = Regex.Replace(line, " {2,}", " ").Trim().Split(" ");
+                    // Optimized parsing: avoid Regex allocation by using StringSplitOptions.RemoveEmptyEntries
+                    string[] elements = line.Split(' ', StringSplitOptions.RemoveEmptyEntries);
                     if (elements.Length < 3)
                         continue;
 

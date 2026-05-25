@@ -98,7 +98,8 @@ namespace UniGetUI.PackageEngine.Managers.PowerShell7Manager
                     }
                     else
                     {
-                        string[] elements = Regex.Replace(line, " {2,}", " ").Split(' ');
+                        // Optimized parsing: avoid Regex allocation by using StringSplitOptions.RemoveEmptyEntries
+                        string[] elements = line.Split(' ', StringSplitOptions.RemoveEmptyEntries);
                         if (elements.Length < 3)
                         {
                             continue;
