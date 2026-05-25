@@ -593,7 +593,7 @@
                     HorizontalAlignment="Right"
                     VerticalAlignment="Center"
                     x:FieldModifier="protected"
-                    AutomationProperties.HelpText="Reload packages"
+
                     CornerRadius="4">
                     <FontIcon FontSize="16" Glyph="&#xE72C;" />
                 </Button>

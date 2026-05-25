@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Globalization;
 using Microsoft.UI.Input;
 using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Automation;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Input;
 using UniGetUI.Core.SettingsEngine;
@@ -274,9 +275,11 @@ namespace UniGetUI.Interface
             LastPackageLoadTime = DateTime.Now;
             LocalPackagesNode.Content = CoreTools.Translate("Local");
             LocalPackagesNode.IsExpanded = false;
-
             ReloadButton.Click += async (_, _) => await LoadPackages();
             ReloadButton.Visibility = DISABLE_RELOAD ? Visibility.Collapsed : Visibility.Visible;
+            AutomationProperties.SetName(ReloadButton, CoreTools.Translate("Reload packages"));
+            ToolTipService.SetToolTip(ReloadButton, CoreTools.Translate("Reload packages"));
+
 
 
             // Handle the Enter Pressed event on the MegaQueryBlock
