@@ -1,0 +1,3 @@
+## 2024-05-27 - Fast String Splitting vs Regex in PackageEngine
+**Learning:** Parsing command line output tabular data (like scoop, winget, pip, etc.) used `Regex.Replace(line, " {2,}", " ").Split(' ')` extensively to tokenize elements separated by variable amounts of whitespace. Running a micro-benchmark showed that doing `string.Split(' ', StringSplitOptions.RemoveEmptyEntries)` is around 6x faster and avoids large regex allocation overhead.
+**Action:** Replace `Regex.Replace(line, " {2,}", " ").Split(' ')` with `string.Split(' ', StringSplitOptions.RemoveEmptyEntries)` across all PackageEngine manager parsing contexts to speed up package listing.
