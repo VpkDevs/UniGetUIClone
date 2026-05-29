@@ -1,0 +1,3 @@
+## 2024-05-29 - Regex.Replace in tabular CLI output tokenization
+**Learning:** The codebase heavily uses `Regex.Replace(line, @"\s+", " ").Split(' ')` or `Regex.Replace(line, " {2,}", " ").Split(' ')` to tokenize tabular CLI output where columns are separated by multiple spaces. This is an anti-pattern as it introduces regular expression allocation overhead and takes O(N) regex evaluation + O(N) string allocation + O(N) split allocation.
+**Action:** Replace these occurrences with `line.Split(' ', StringSplitOptions.RemoveEmptyEntries)` or `line.Split((char[])null, StringSplitOptions.RemoveEmptyEntries)` which does the same thing but avoids regex overhead and creates fewer string allocations. This aligns with the performance convention memory provided.
