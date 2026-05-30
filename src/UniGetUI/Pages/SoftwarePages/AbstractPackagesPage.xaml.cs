@@ -244,6 +244,12 @@ namespace UniGetUI.Interface
             ToolTipService.SetToolTip(Selector_Grid, CoreTools.Translate("Grid"));
             ToolTipService.SetToolTip(Selector_Icons, CoreTools.Translate("Icons"));
 
+            AutomationProperties.SetName(ToggleFiltersButton, CoreTools.Translate("Toggle filters"));
+            ToolTipService.SetToolTip(ToggleFiltersButton, CoreTools.Translate("Toggle filters"));
+
+            AutomationProperties.SetName(MainToolbarButtonDropdown, CoreTools.Translate("More actions"));
+            ToolTipService.SetToolTip(MainToolbarButtonDropdown, CoreTools.Translate("More actions"));
+
             MainTitle.Text = data.PageTitle;
             HeaderIcon.Glyph = data.Glyph;
 
