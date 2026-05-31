@@ -1,0 +1,3 @@
+## 2024-05-24 - Avoid Regex allocations for tabular CLI output parsing
+**Learning:** Using `Regex.Replace(line, " {2,}", " ").Split(' ')` or `Regex.Replace(line, @"\s+", " ").Split(' ')` to parse tabular CLI output separated by multiple spaces or whitespace is inefficient due to regular expression allocation overhead. Benchmarks show this approach can be an order of magnitude slower than native string splitting.
+**Action:** Prefer using `string.Split(' ', StringSplitOptions.RemoveEmptyEntries)` (for spaces) or `string.Split((char[])null, StringSplitOptions.RemoveEmptyEntries)` (for all whitespace). This significantly improves performance and avoids regular expression allocation overhead.
