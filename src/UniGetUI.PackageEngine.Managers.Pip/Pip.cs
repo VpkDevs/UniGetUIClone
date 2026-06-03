@@ -219,7 +219,7 @@ namespace UniGetUI.PackageEngine.Managers.PipManager
                 }
                 else
                 {
-                    string[] elements = Regex.Replace(line, " {2,}", " ").Split(' ');
+                    string[] elements = line.Split(' ', StringSplitOptions.RemoveEmptyEntries) /* Bolt: Avoid Regex allocation for tokenizing whitespace */;
                     if (elements.Length < 3)
                     {
                         continue;
@@ -283,7 +283,7 @@ namespace UniGetUI.PackageEngine.Managers.PipManager
                 }
                 else
                 {
-                    string[] elements = Regex.Replace(line, " {2,}", " ").Split(' ');
+                    string[] elements = line.Split(' ', StringSplitOptions.RemoveEmptyEntries) /* Bolt: Avoid Regex allocation for tokenizing whitespace */;
                     if (elements.Length < 2)
                     {
                         continue;
