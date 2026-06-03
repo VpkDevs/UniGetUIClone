@@ -23,6 +23,7 @@ using DispatcherQueuePriority = Microsoft.UI.Dispatching.DispatcherQueuePriority
 using Microsoft.UI;
 using Microsoft.UI.Xaml.Media;
 using Windows.UI;
+using Microsoft.UI.Xaml.Automation;
 using Microsoft.UI.Xaml.Controls.Primitives;
 using UniGetUI.Interface.Enums;
 using UniGetUI.Pages.PageInterfaces;
@@ -241,8 +242,22 @@ namespace UniGetUI.Interface
             GenerateHeaderBarTitles();
 
             ToolTipService.SetToolTip(Selector_List, CoreTools.Translate("List"));
+            AutomationProperties.SetName(Selector_List, CoreTools.Translate("List"));
+
             ToolTipService.SetToolTip(Selector_Grid, CoreTools.Translate("Grid"));
+            AutomationProperties.SetName(Selector_Grid, CoreTools.Translate("Grid"));
+
             ToolTipService.SetToolTip(Selector_Icons, CoreTools.Translate("Icons"));
+            AutomationProperties.SetName(Selector_Icons, CoreTools.Translate("Icons"));
+
+            ToolTipService.SetToolTip(ReloadButton, CoreTools.Translate("Reload packages"));
+            AutomationProperties.SetName(ReloadButton, CoreTools.Translate("Reload packages"));
+
+            ToolTipService.SetToolTip(MegaFindButton, CoreTools.Translate("Search"));
+            AutomationProperties.SetName(MegaFindButton, CoreTools.Translate("Search"));
+
+            ToolTipService.SetToolTip(MainToolbarButtonDropdown, CoreTools.Translate("More actions"));
+            AutomationProperties.SetName(MainToolbarButtonDropdown, CoreTools.Translate("More actions"));
 
             MainTitle.Text = data.PageTitle;
             HeaderIcon.Glyph = data.Glyph;
