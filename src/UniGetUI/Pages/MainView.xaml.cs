@@ -20,6 +20,7 @@ using UniGetUI.Controls;
 using UniGetUI.PackageEngine;
 using UniGetUI.PackageEngine.PackageLoader;
 using UniGetUI.Pages.PageInterfaces;
+using Microsoft.UI.Xaml.Automation;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -64,6 +65,10 @@ namespace UniGetUI.Interface
         public MainView(AutoSuggestBox mainTextBlock)
         {
             InitializeComponent();
+            AutomationProperties.SetName(OperationSplitterMenuButton, CoreTools.Translate("Operation options"));
+            ToolTipService.SetToolTip(OperationSplitterMenuButton, CoreTools.Translate("Operation options"));
+            AutomationProperties.SetName(ExpandCollapseOpList, CoreTools.Translate("Collapse operations list"));
+            ToolTipService.SetToolTip(ExpandCollapseOpList, CoreTools.Translate("Collapse operations list"));
             MainTextBlock = mainTextBlock;
             OperationList.ItemContainerTransitions = null;
             OperationList.ItemsSource = MainApp.Operations._operationList;
@@ -437,12 +442,16 @@ namespace UniGetUI.Interface
             {
                 isCollapsed = false;
                 ExpandCollapseOpList.Content = new FontIcon { Glyph = "\uE96E", FontSize = 14 };
+                AutomationProperties.SetName(ExpandCollapseOpList, CoreTools.Translate("Collapse operations list"));
+                ToolTipService.SetToolTip(ExpandCollapseOpList, CoreTools.Translate("Collapse operations list"));
                 UpdateOperationsLayout();
             }
             else
             {
                 isCollapsed = true;
                 ExpandCollapseOpList.Content = new FontIcon { Glyph = "\uE96D", FontSize = 14 };
+                AutomationProperties.SetName(ExpandCollapseOpList, CoreTools.Translate("Expand operations list"));
+                ToolTipService.SetToolTip(ExpandCollapseOpList, CoreTools.Translate("Expand operations list"));
                 UpdateOperationsLayout();
             }
         }
