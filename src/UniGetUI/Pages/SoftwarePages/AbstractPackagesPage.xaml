@@ -593,7 +593,6 @@
                     HorizontalAlignment="Right"
                     VerticalAlignment="Center"
                     x:FieldModifier="protected"
-                    AutomationProperties.HelpText="Reload packages"
                     CornerRadius="4">
                     <FontIcon FontSize="16" Glyph="&#xE72C;" />
                 </Button>
@@ -1179,7 +1178,6 @@
                         Height="80"
                         Padding="12"
                         x:FieldModifier="protected"
-                        AutomationProperties.HelpText="Search"
                         CornerRadius="0,8,8,0">
                         <AnimatedIcon>
                             <AnimatedIcon.Source>

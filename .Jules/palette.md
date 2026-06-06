@@ -1,0 +1,3 @@
+## 2025-02-18 - Dynamically Set Accessibility Attributes on WinUI Icon-only Buttons
+**Learning:** In WinUI, hardcoded `AutomationProperties.HelpText` on XAML icon-only buttons isn't fully localized or accessible. Screen readers and tooltips require both `AutomationProperties.SetName` and `ToolTipService.SetToolTip` to be set.
+**Action:** Assign `AutomationProperties.SetName` and `ToolTipService.SetToolTip` dynamically in the C# code-behind using `CoreTools.Translate()` when the control initializes, instead of hardcoding attributes in XAML. Make sure to include `using Microsoft.UI.Xaml.Automation;`.
