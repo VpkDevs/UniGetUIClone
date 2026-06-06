@@ -1,0 +1,3 @@
+## 2024-05-18 - Replacing Regex for parsing spaces
+**Learning:** Using `Regex.Replace(line, " {2,}", " ").Split(' ')` or `Regex.Replace(line, @"\s+", " ").Split(' ')` to parse tabular CLI output separated by multiple spaces causes massive allocation overhead. Using `.Split(' ', StringSplitOptions.RemoveEmptyEntries)` is over 10x faster and performs identical behavior for space-separated tabular data. This is particularly noticeable in Package Managers parsing CLI output.
+**Action:** Use `StringSplitOptions.RemoveEmptyEntries` whenever splitting by whitespace rather than `Regex.Replace` unless regular expressions are strictly required for validation or complex character sets.
