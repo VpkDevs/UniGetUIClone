@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Globalization;
 using Microsoft.UI.Input;
 using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Automation;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Input;
 using UniGetUI.Core.SettingsEngine;
@@ -243,6 +244,10 @@ namespace UniGetUI.Interface
             ToolTipService.SetToolTip(Selector_List, CoreTools.Translate("List"));
             ToolTipService.SetToolTip(Selector_Grid, CoreTools.Translate("Grid"));
             ToolTipService.SetToolTip(Selector_Icons, CoreTools.Translate("Icons"));
+
+            string reloadText = CoreTools.Translate("Reload packages");
+            AutomationProperties.SetName(ReloadButton, reloadText);
+            ToolTipService.SetToolTip(ReloadButton, reloadText);
 
             MainTitle.Text = data.PageTitle;
             HeaderIcon.Glyph = data.Glyph;
