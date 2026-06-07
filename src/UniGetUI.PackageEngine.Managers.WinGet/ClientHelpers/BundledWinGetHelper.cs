@@ -691,7 +691,7 @@ internal sealed class BundledWinGetHelper : IWinGetManagerHelper
                 }
                 else
                 {
-                    string[] parts = Regex.Replace(line.Trim(), " {2,}", " ").Split(' ');
+                    string[] parts = line.Split(' ', StringSplitOptions.RemoveEmptyEntries);
                     if (parts.Length > 1)
                     {
                         sources.Add(new ManagerSource(Manager, parts[0].Trim(), new Uri(parts[1].Trim())));
