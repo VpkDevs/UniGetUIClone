@@ -492,7 +492,7 @@ internal sealed class BundledWinGetHelper : IWinGetManagerHelper
                     details.Dependencies.Add(new()
                     {
                         Name = line.Split(' ')[0],
-                        Version = line.Contains('[') ? line.Split('[')[1].TrimEnd(']'): "",
+                        Version = line.Contains('[') ? line.Split('[')[1].TrimEnd(']') : "",
                         Mandatory = true
                     });
                 }
@@ -691,7 +691,7 @@ internal sealed class BundledWinGetHelper : IWinGetManagerHelper
                 }
                 else
                 {
-                    string[] parts = Regex.Replace(line.Trim(), " {2,}", " ").Split(' ');
+                    string[] parts = line.Split(' ', StringSplitOptions.RemoveEmptyEntries);
                     if (parts.Length > 1)
                     {
                         sources.Add(new ManagerSource(Manager, parts[0].Trim(), new Uri(parts[1].Trim())));

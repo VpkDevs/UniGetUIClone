@@ -94,7 +94,7 @@ namespace UniGetUI.PackageEngine.Managers.PowerShellManager
                 }
                 else
                 {
-                    string[] elements = Regex.Replace(line, " {2,}", " ").Split(' ');
+                    string[] elements = line.Split(' ', StringSplitOptions.RemoveEmptyEntries);
                     if (elements.Length < 3)
                     {
                         continue;
@@ -120,7 +120,7 @@ namespace UniGetUI.PackageEngine.Managers.PowerShellManager
         public override List<string> FindCandidateExecutableFiles()
         {
             var candidates = CoreTools.WhichMultiple("powershell.exe");
-            if(candidates.Count is 0) candidates.Add(CoreData.PowerShell5);
+            if (candidates.Count is 0) candidates.Add(CoreData.PowerShell5);
             return candidates;
         }
 

@@ -1,0 +1,3 @@
+## 2024-05-18 - Improve string splitting performance in CLI output parsers
+**Learning:** In C#, processing tabular CLI output strings separated by variable whitespace using `Regex.Replace(line, " {2,}", " ").Split(' ')` or `Regex.Replace(line, @"\s+", " ").Split(' ')` incurs significant regular expression allocation overhead and processing time.
+**Action:** When tokenizing tabular CLI output separated by multiple spaces or whitespace, prefer using `string.Split(' ', StringSplitOptions.RemoveEmptyEntries)` (for spaces) or `string.Split((char[])null, StringSplitOptions.RemoveEmptyEntries)` (for all whitespace). This completely avoids the regex substitution and is significantly faster.

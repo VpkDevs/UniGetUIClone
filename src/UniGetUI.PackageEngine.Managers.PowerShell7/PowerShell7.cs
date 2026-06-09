@@ -98,7 +98,7 @@ namespace UniGetUI.PackageEngine.Managers.PowerShell7Manager
                     }
                     else
                     {
-                        string[] elements = Regex.Replace(line, " {2,}", " ").Split(' ');
+                        string[] elements = line.Split(' ', StringSplitOptions.RemoveEmptyEntries);
                         if (elements.Length < 3)
                         {
                             continue;
@@ -111,7 +111,7 @@ namespace UniGetUI.PackageEngine.Managers.PowerShell7Manager
 
                         Packages.Add(new Package(CoreTools.FormatAsName(elements[0]), elements[0], elements[1],
                             SourcesHelper.Factory.GetSourceOrDefault(elements[2]), this,
-                            new(env == "CurrentUser"? PackageScope.User : PackageScope.Machine)));
+                            new(env == "CurrentUser" ? PackageScope.User : PackageScope.Machine)));
                     }
                 }
 
