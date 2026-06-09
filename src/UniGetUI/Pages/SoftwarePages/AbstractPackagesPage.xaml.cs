@@ -24,6 +24,7 @@ using Microsoft.UI;
 using Microsoft.UI.Xaml.Media;
 using Windows.UI;
 using Microsoft.UI.Xaml.Controls.Primitives;
+using Microsoft.UI.Xaml.Automation;
 using UniGetUI.Interface.Enums;
 using UniGetUI.Pages.PageInterfaces;
 
@@ -243,6 +244,10 @@ namespace UniGetUI.Interface
             ToolTipService.SetToolTip(Selector_List, CoreTools.Translate("List"));
             ToolTipService.SetToolTip(Selector_Grid, CoreTools.Translate("Grid"));
             ToolTipService.SetToolTip(Selector_Icons, CoreTools.Translate("Icons"));
+            ToolTipService.SetToolTip(ReloadButton, CoreTools.Translate("Reload packages"));
+            AutomationProperties.SetName(ReloadButton, CoreTools.Translate("Reload packages"));
+            ToolTipService.SetToolTip(MegaFindButton, CoreTools.Translate("Search"));
+            AutomationProperties.SetName(MegaFindButton, CoreTools.Translate("Search"));
 
             MainTitle.Text = data.PageTitle;
             HeaderIcon.Glyph = data.Glyph;
