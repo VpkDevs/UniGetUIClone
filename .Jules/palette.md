@@ -1,0 +1,3 @@
+## 2024-06-11 - WinUI Dynamic Accessibility
+**Learning:** In WinUI, icon-only buttons (like `<FontIcon>` or animated visual search buttons) require explicit programmatic assignment of accessibility names and tooltips using `CoreTools.Translate()` in the C# code-behind for screen readers and localization. Avoid hardcoding `AutomationProperties.HelpText` in XAML.
+**Action:** When adding accessibility to WinUI buttons, use `AutomationProperties.SetName(Button, CoreTools.Translate("Label"));` and `ToolTipService.SetToolTip(Button, CoreTools.Translate("Label"));` in the constructor instead of XAML.
