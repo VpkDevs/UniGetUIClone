@@ -1,0 +1,3 @@
+## 2024-05-18 - Avoid Regex.Replace for splitting whitespace
+**Learning:** In C#, replacing `Regex.Replace(line, @"\s+", " ")` or `Regex.Replace(line, " {2,}", " ")` followed by `.Split(' ')` with `line.Split((char[])null, StringSplitOptions.RemoveEmptyEntries)` or `line.Split(' ', StringSplitOptions.RemoveEmptyEntries)` is a high-impact, zero-allocation optimization that prevents Regex compilation and execution overhead on every line parsed from CLI output.
+**Action:** When tokenizing tabular CLI output separated by multiple spaces, always prefer `string.Split` with `StringSplitOptions.RemoveEmptyEntries` rather than pre-processing the string with regular expressions.

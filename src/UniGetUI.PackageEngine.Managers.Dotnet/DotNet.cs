@@ -92,7 +92,7 @@ namespace UniGetUI.PackageEngine.Managers.DotNetManager
                     }
                     else
                     {
-                        string[] elements = Regex.Replace(line, " {2,}", " ").Split(' ');
+                        string[] elements = line.Split(' ', StringSplitOptions.RemoveEmptyEntries);
                         if (elements.Length < 2)
                         {
                             continue;
