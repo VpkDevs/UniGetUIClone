@@ -663,7 +663,6 @@
           </Button>
           <Button
             x:Name="MainToolbarButtonDropdown"
-            AutomationProperties.Name="More actions"
             Width="30"
             Height="36"
             Padding="4"
@@ -1222,7 +1221,6 @@
             Height="64"
             Padding="12"
             x:FieldModifier="protected"
-            AutomationProperties.HelpText="Search"
             CornerRadius="0,8,8,0"
           >
             <AnimatedIcon>
@@ -1287,17 +1285,17 @@
             SelectionChanged="ViewModeSelector_SelectionChanged"
             SelectionMode="Single"
           >
-            <Toolkit:SegmentedItem x:Name="Selector_List" AutomationProperties.Name="List view">
+            <Toolkit:SegmentedItem x:Name="Selector_List">
               <Toolkit:SegmentedItem.Icon>
                 <FontIcon Glyph="&#xE8FD;" />
               </Toolkit:SegmentedItem.Icon>
             </Toolkit:SegmentedItem>
-            <Toolkit:SegmentedItem x:Name="Selector_Grid" AutomationProperties.Name="Grid view">
+            <Toolkit:SegmentedItem x:Name="Selector_Grid">
               <Toolkit:SegmentedItem.Icon>
                 <FontIcon Glyph="&#xF168;" />
               </Toolkit:SegmentedItem.Icon>
             </Toolkit:SegmentedItem>
-            <Toolkit:SegmentedItem x:Name="Selector_Icons" AutomationProperties.Name="Icons view">
+            <Toolkit:SegmentedItem x:Name="Selector_Icons">
               <Toolkit:SegmentedItem.Icon>
                 <FontIcon Glyph="&#xF0E2;" />
               </Toolkit:SegmentedItem.Icon>

@@ -7,6 +7,7 @@ using Microsoft.UI;
 using Microsoft.UI.Input;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
+using Microsoft.UI.Xaml.Automation;
 using Microsoft.UI.Xaml.Controls.Primitives;
 using Microsoft.UI.Xaml.Input;
 using Microsoft.UI.Xaml.Media;
@@ -296,8 +297,19 @@ namespace UniGetUI.Interface
             GenerateHeaderBarTitles();
 
             ToolTipService.SetToolTip(Selector_List, CoreTools.Translate("List"));
+            AutomationProperties.SetName(Selector_List, CoreTools.Translate("List view"));
+
             ToolTipService.SetToolTip(Selector_Grid, CoreTools.Translate("Grid"));
+            AutomationProperties.SetName(Selector_Grid, CoreTools.Translate("Grid view"));
+
             ToolTipService.SetToolTip(Selector_Icons, CoreTools.Translate("Icons"));
+            AutomationProperties.SetName(Selector_Icons, CoreTools.Translate("Icons view"));
+
+            ToolTipService.SetToolTip(MainToolbarButtonDropdown, CoreTools.Translate("More actions"));
+            AutomationProperties.SetName(MainToolbarButtonDropdown, CoreTools.Translate("More actions"));
+
+            ToolTipService.SetToolTip(MegaFindButton, CoreTools.Translate("Search"));
+            AutomationProperties.SetName(MegaFindButton, CoreTools.Translate("Search"));
 
             MainTitle.Text = data.PageTitle;
             HeaderIcon.Glyph = data.Glyph;
