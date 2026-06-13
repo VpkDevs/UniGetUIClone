@@ -1,3 +1,4 @@
+using Microsoft.UI.Xaml.Automation;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Media.Animation;
 using UniGetUI.Core.Tools;
@@ -19,10 +20,26 @@ namespace UniGetUI.Interface
         public AboutUniGetUI()
         {
             InitializeComponent();
-            SelectorBarItemPage1.Text = CoreTools.Translate("About");
-            SelectorBarItemPage2.Text = CoreTools.Translate("Third-party licenses");
-            SelectorBarItemPage3.Text = CoreTools.Translate("Contributors");
-            SelectorBarItemPage4.Text = CoreTools.Translate("Translators");
+
+            string aboutText = CoreTools.Translate("About");
+            SelectorBarItemPage1.Text = aboutText;
+            AutomationProperties.SetName(SelectorBarItemPage1, aboutText);
+            ToolTipService.SetToolTip(SelectorBarItemPage1, aboutText);
+
+            string licensesText = CoreTools.Translate("Third-party licenses");
+            SelectorBarItemPage2.Text = licensesText;
+            AutomationProperties.SetName(SelectorBarItemPage2, licensesText);
+            ToolTipService.SetToolTip(SelectorBarItemPage2, licensesText);
+
+            string contributorsText = CoreTools.Translate("Contributors");
+            SelectorBarItemPage3.Text = contributorsText;
+            AutomationProperties.SetName(SelectorBarItemPage3, contributorsText);
+            ToolTipService.SetToolTip(SelectorBarItemPage3, contributorsText);
+
+            string translatorsText = CoreTools.Translate("Translators");
+            SelectorBarItemPage4.Text = translatorsText;
+            AutomationProperties.SetName(SelectorBarItemPage4, translatorsText);
+            ToolTipService.SetToolTip(SelectorBarItemPage4, translatorsText);
         }
 
         private void SelectorBar_SelectionChanged(
