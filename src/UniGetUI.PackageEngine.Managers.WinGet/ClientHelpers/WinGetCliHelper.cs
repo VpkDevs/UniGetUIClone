@@ -549,7 +549,8 @@ internal sealed class WinGetCliHelper : IWinGetManagerHelper
                 }
                 else
                 {
-                    string[] parts = Regex.Replace(line.Trim(), " {2,}", " ").Split(' ');
+                    // [Bolt] Optimization: Replaced Regex.Replace with String.Split for zero-allocation tokenization
+                    string[] parts = line.Split(' ', StringSplitOptions.RemoveEmptyEntries);
                     if (parts.Length > 1)
                     {
                         sources.Add(
