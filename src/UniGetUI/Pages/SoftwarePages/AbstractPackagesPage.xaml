@@ -1222,7 +1222,6 @@
             Height="64"
             Padding="12"
             x:FieldModifier="protected"
-            AutomationProperties.HelpText="Search"
             CornerRadius="0,8,8,0"
           >
             <AnimatedIcon>
