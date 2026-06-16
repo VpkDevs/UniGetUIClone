@@ -1,0 +1,3 @@
+## 2024-06-25 - Dynamic Accessibility for Icon-only Buttons
+**Learning:** In WinUI, icon-only buttons (`<FontIcon>`) do not inherit tooltips or accessible names. Furthermore, setting static `AutomationProperties.Name` in XAML isn't localized and doesn't dynamically update.
+**Action:** Always set `AutomationProperties.SetName` and `ToolTipService.SetToolTip` using `CoreTools.Translate()` in C# code-behind. Make sure to set these values initially in the constructor and dynamically update them inside event handlers (like `.Click` handlers changing glyph/state) so screen readers and tooltips accurately reflect the control's current state and localization.
