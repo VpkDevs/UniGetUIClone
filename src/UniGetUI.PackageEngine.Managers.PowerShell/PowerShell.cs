@@ -175,7 +175,7 @@ namespace UniGetUI.PackageEngine.Managers.PowerShellManager
                     continue;
                 }
 
-                string[] elements = Regex.Replace(rawLine, " {2,}", " ").Split(' ');
+                string[] elements = rawLine.Split(' ', StringSplitOptions.RemoveEmptyEntries);
                 if (elements.Length < 3)
                 {
                     continue;
