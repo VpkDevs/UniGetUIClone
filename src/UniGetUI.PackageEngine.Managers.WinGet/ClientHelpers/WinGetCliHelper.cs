@@ -549,7 +549,7 @@ internal sealed class WinGetCliHelper : IWinGetManagerHelper
                 }
                 else
                 {
-                    string[] parts = Regex.Replace(line.Trim(), " {2,}", " ").Split(' ');
+                    string[] parts = line.Trim().Split(' ', StringSplitOptions.RemoveEmptyEntries);
                     if (parts.Length > 1)
                     {
                         sources.Add(
