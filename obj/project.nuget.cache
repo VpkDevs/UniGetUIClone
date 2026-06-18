@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "y6Q0PLlxjzk=",
+  "success": true,
+  "projectFilePath": "/app/benchmark_version.csproj",
+  "expectedPackageFiles": [
+    "/home/jules/.nuget/packages/microsoft.netcore.app.host.linux-x64/8.0.24/microsoft.netcore.app.host.linux-x64.8.0.24.nupkg.sha512"
+  ],
+  "logs": []
+}

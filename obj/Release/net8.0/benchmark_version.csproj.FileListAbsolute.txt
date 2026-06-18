@@ -1,0 +1,17 @@
+/app/bin/Release/net8.0/benchmark_version
+/app/bin/Release/net8.0/benchmark_version.deps.json
+/app/bin/Release/net8.0/benchmark_version.runtimeconfig.json
+/app/bin/Release/net8.0/benchmark_version.dll
+/app/bin/Release/net8.0/benchmark_version.pdb
+/app/obj/Release/net8.0/benchmark_version.src.UniGetUI.Properties.Resources.resources
+/app/obj/Release/net8.0/benchmark_version.csproj.GenerateResource.cache
+/app/obj/Release/net8.0/benchmark_version.GeneratedMSBuildEditorConfig.editorconfig
+/app/obj/Release/net8.0/benchmark_version.AssemblyInfoInputs.cache
+/app/obj/Release/net8.0/benchmark_version.AssemblyInfo.cs
+/app/obj/Release/net8.0/benchmark_version.csproj.CoreCompileInputs.cache
+/app/obj/Release/net8.0/benchmark_version.sourcelink.json
+/app/obj/Release/net8.0/benchmark_version.dll
+/app/obj/Release/net8.0/refint/benchmark_version.dll
+/app/obj/Release/net8.0/benchmark_version.pdb
+/app/obj/Release/net8.0/benchmark_version.genruntimeconfig.cache
+/app/obj/Release/net8.0/ref/benchmark_version.dll

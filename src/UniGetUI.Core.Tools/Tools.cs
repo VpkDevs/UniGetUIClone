@@ -459,73 +459,59 @@ namespace UniGetUI.Core.Tools
         {
             try
             {
-                if (string.IsNullOrEmpty(version))
-                {
-                    return new Version(0, 0, 0, 0);
-                }
+                char[] separators = ['.', '-', '/', '#'];
+                string[] versionItems = ["", "", "", ""];
 
-                bool seenDigit = false;
-                bool seenLetterAfterDigit = false;
-
-                for (int i = 0; i < version.Length; i++)
+                string[] segments = version.Split(separators, StringSplitOptions.RemoveEmptyEntries);
+                foreach (var segment in segments)
                 {
-                    char c = version[i];
-                    if (c == '.' || c == '-' || c == '/' || c == '#')
+                    bool seenDigit = false;
+                    bool seenLetterAfterDigit = false;
+                    bool seenDigitAfterLetter = false;
+                    foreach (char c in segment)
                     {
-                        seenDigit = false;
-                        seenLetterAfterDigit = false;
-                    }
-                    else if (char.IsDigit(c))
-                    {
-                        if (seenLetterAfterDigit)
+                        if (char.IsDigit(c))
                         {
-                            Logger.Warn($"Version string {version} appears to contain non-numeric characters within a numeric segment and will be treated as unknown");
-                            return CoreTools.Version.Null;
+                            if (seenLetterAfterDigit)
+                                seenDigitAfterLetter = true;
+                            seenDigit = true;
                         }
-                        seenDigit = true;
+                        else if (char.IsLetter(c) && seenDigit)
+                        {
+                            seenLetterAfterDigit = true;
+                        }
                     }
-                    else if (char.IsLetter(c) && seenDigit)
+
+                    if (seenDigit && seenLetterAfterDigit && seenDigitAfterLetter)
                     {
-                        seenLetterAfterDigit = true;
+                        Logger.Warn(
+                            $"Version string {version} appears to contain non-numeric characters within a numeric segment and will be treated as unknown");
+                        return CoreTools.Version.Null;
                     }
                 }
 
                 int dotCount = 0;
-                int[] numbers = new int[4];
-                bool[] hasValue = new bool[4];
                 bool first = true;
 
-                for (int i = 0; i < version.Length; i++)
+                foreach (char c in version)
                 {
-                    char c = version[i];
                     if (char.IsDigit(c))
-                    {
-                        long val = (long)numbers[dotCount] * 10 + (c - '0');
-                        if (val > int.MaxValue)
-                        {
-                            numbers[dotCount] = -1; // Overflow indicator
-                        }
-                        else if (numbers[dotCount] != -1)
-                        {
-                            numbers[dotCount] = (int)val;
-                            hasValue[dotCount] = true;
-                        }
-                    }
-                    else if (!first && (c == '.' || c == '-' || c == '/' || c == '#'))
-                    {
+                        versionItems[dotCount] += c;
+                    else if (!first && separators.Contains(c))
                         if (dotCount < 3)
                             dotCount++;
-                    }
                     first = false;
                 }
 
+                int[] numbers = { 0, 0, 0, 0 };
                 for (int i = 0; i < 4; i++)
                 {
-                    if (numbers[i] == -1 || !hasValue[i])
-                        numbers[i] = 0;
+                    if (int.TryParse(versionItems[i], out int val))
+                        numbers[i] = val;
                 }
 
-                return new Version(numbers[0], numbers[1], numbers[2], numbers[3]);
+                var ver = new Version(numbers[0], numbers[1], numbers[2], numbers[3]);
+                return ver;
             }
             catch
             {
