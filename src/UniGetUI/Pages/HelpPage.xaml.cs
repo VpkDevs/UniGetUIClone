@@ -22,6 +22,19 @@ namespace UniGetUI.Interface.Dialogs
         public HelpPage()
         {
             InitializeComponent();
+
+            Microsoft.UI.Xaml.Automation.AutomationProperties.SetName(BackButton, CoreTools.Translate("Go back"));
+            ToolTipService.SetToolTip(BackButton, CoreTools.Translate("Go back"));
+
+            Microsoft.UI.Xaml.Automation.AutomationProperties.SetName(RightButton, CoreTools.Translate("Go forward"));
+            ToolTipService.SetToolTip(RightButton, CoreTools.Translate("Go forward"));
+
+            Microsoft.UI.Xaml.Automation.AutomationProperties.SetName(HomeButton, CoreTools.Translate("Home"));
+            ToolTipService.SetToolTip(HomeButton, CoreTools.Translate("Home"));
+
+            Microsoft.UI.Xaml.Automation.AutomationProperties.SetName(ReloadButton, CoreTools.Translate("Reload"));
+            ToolTipService.SetToolTip(ReloadButton, CoreTools.Translate("Reload"));
+
             _ = InitializeWebView();
         }
 
