@@ -1,0 +1,17 @@
+/app/bin/Debug/net8.0/test
+/app/bin/Debug/net8.0/test.deps.json
+/app/bin/Debug/net8.0/test.runtimeconfig.json
+/app/bin/Debug/net8.0/test.dll
+/app/bin/Debug/net8.0/test.pdb
+/app/obj/Debug/net8.0/test.src.UniGetUI.Properties.Resources.resources
+/app/obj/Debug/net8.0/test.csproj.GenerateResource.cache
+/app/obj/Debug/net8.0/test.GeneratedMSBuildEditorConfig.editorconfig
+/app/obj/Debug/net8.0/test.AssemblyInfoInputs.cache
+/app/obj/Debug/net8.0/test.AssemblyInfo.cs
+/app/obj/Debug/net8.0/test.csproj.CoreCompileInputs.cache
+/app/obj/Debug/net8.0/test.sourcelink.json
+/app/obj/Debug/net8.0/test.dll
+/app/obj/Debug/net8.0/refint/test.dll
+/app/obj/Debug/net8.0/test.pdb
+/app/obj/Debug/net8.0/test.genruntimeconfig.cache
+/app/obj/Debug/net8.0/ref/test.dll
