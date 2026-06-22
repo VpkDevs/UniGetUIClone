@@ -105,12 +105,7 @@ namespace UniGetUI.PackageEngine.Managers.ScoopManager
                         continue;
                     }
 
-                    string[] elements = Regex
-                        .Replace(
-                            Regex.Replace(line, "[1234567890 :.-][AaPp][Mm][\\W]", "").Trim(),
-                            " {2,}",
-                            " "
-                        )
+                    string[] elements = Regex.Replace(line, "[1234567890 :.-][AaPp][Mm][\\W]", "")
                         .Split(' ', StringSplitOptions.RemoveEmptyEntries);
                     if (elements.Length < 5)
                     {
