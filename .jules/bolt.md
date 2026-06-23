@@ -1,0 +1,3 @@
+## 2024-11-20 - [Performance] Use String.Split for whitespace instead of Regex.Replace
+**Learning:** The project was using `Regex.Replace(line, @"\s+", " ").Split(' ')` to parse tabular package outputs in `Vcpkg.cs`. In C#, using `.Split((char[]?)null, StringSplitOptions.RemoveEmptyEntries)` is a simpler, zero-allocation way to split a string by any amount of whitespace. It removes the need to use `Regex.Replace` which is less efficient.
+**Action:** Replace `Regex.Replace(..., @"\s+", " ").Split(' ')` with `.Split((char[]?)null, StringSplitOptions.RemoveEmptyEntries)` for splitting CLI output separated by whitespace when appropriate.
