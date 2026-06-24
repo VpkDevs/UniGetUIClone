@@ -1,0 +1,3 @@
+## 2024-06-24 - Accessibility for Icon-Only Buttons
+**Learning:** In WinUI 3 (UniGetUI), icon-only buttons (like those using `widgets:LocalIcon` or `FontIcon`) do not inherently have accessible names or tooltips. Setting `AutomationProperties.SetName` and `ToolTipService.SetToolTip` is required for screen readers and tooltips. These should be dynamically set in the code-behind using `CoreTools.Translate()` to ensure full localization support.
+**Action:** When adding accessible names to buttons, always check if they are icon-only and ensure both `AutomationProperties.SetName` and `ToolTipService.SetToolTip` are applied dynamically in the `*.xaml.cs` constructor or initialization method, wrapping the strings with `CoreTools.Translate()`.
