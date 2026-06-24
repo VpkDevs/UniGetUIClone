@@ -1,6 +1,5 @@
 using System.Diagnostics;
 using System.Text;
-using System.Text.RegularExpressions;
 using UniGetUI.Core.Data;
 using UniGetUI.Core.Tools;
 using UniGetUI.Interface.Enums;
@@ -175,7 +174,7 @@ namespace UniGetUI.PackageEngine.Managers.PowerShellManager
                     continue;
                 }
 
-                string[] elements = Regex.Replace(rawLine, " {2,}", " ").Split(' ');
+                string[] elements = rawLine.Split(' ', StringSplitOptions.RemoveEmptyEntries);
                 if (elements.Length < 3)
                 {
                     continue;
