@@ -6,6 +6,7 @@ using CommunityToolkit.WinUI;
 using Microsoft.UI;
 using Microsoft.UI.Input;
 using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Automation;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Controls.Primitives;
 using Microsoft.UI.Xaml.Input;
@@ -396,6 +397,9 @@ namespace UniGetUI.Interface
                 MegaQueryBlock.Focus(FocusState.Programmatic);
                 BackgroundText.Visibility = Visibility.Collapsed;
             }
+
+            AutomationProperties.SetName(MegaFindButton, CoreTools.Translate("Search"));
+            ToolTipService.SetToolTip(MegaFindButton, CoreTools.Translate("Search"));
 
             _searchPlaceholder = CoreTools.Translate("Search for packages");
             MegaQueryBlock.PlaceholderText = _searchPlaceholder;
