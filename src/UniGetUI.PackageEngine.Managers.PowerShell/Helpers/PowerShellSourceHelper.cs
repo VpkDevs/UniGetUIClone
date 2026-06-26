@@ -1,5 +1,4 @@
 using System.Diagnostics;
-using System.Text.RegularExpressions;
 using UniGetUI.Core.Logging;
 using UniGetUI.PackageEngine.Classes.Manager;
 using UniGetUI.PackageEngine.Classes.Manager.Providers;
@@ -101,7 +100,7 @@ namespace UniGetUI.PackageEngine.Managers.PowerShellManager
                     }
                     else
                     {
-                        string[] parts = Regex.Replace(line.Trim(), " {2,}", " ").Split(' ');
+                        string[] parts = line.Trim().Split(' ', StringSplitOptions.RemoveEmptyEntries);
                         if (parts.Length >= 3)
                         {
                             sources.Add(
