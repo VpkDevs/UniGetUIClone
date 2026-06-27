@@ -591,7 +591,6 @@
         <StackPanel x:Name="ToggleFiltersButtonWidth" Margin="0,0,13,0" Orientation="Horizontal">
           <ToggleButton
             x:Name="ToggleFiltersButton"
-            AutomationProperties.Name="Toggle filters panel"
             Grid.Column="0"
             Height="36"
             Margin="1,4"
@@ -1222,7 +1221,6 @@
             Height="64"
             Padding="12"
             x:FieldModifier="protected"
-            AutomationProperties.HelpText="Search"
             CornerRadius="0,8,8,0"
           >
             <AnimatedIcon>
