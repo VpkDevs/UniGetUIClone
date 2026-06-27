@@ -1,0 +1,3 @@
+## 2024-05-14 - Replace Regex string split
+**Learning:** `Regex.Replace(line, @"\s+", " ").Split(' ')` is used to split whitespace separated cli output in `src/UniGetUI.PackageEngine.Managers.Vcpkg/Vcpkg.cs`. However, it creates a compiled regex every time it's called inside the loop, and regex is slower than just string splitting. `line.Split((char[])null, StringSplitOptions.RemoveEmptyEntries)` is a much more efficient alternative.
+**Action:** Replace all uses of `Regex.Replace` for string splitting with `string.Split((char[])null, StringSplitOptions.RemoveEmptyEntries)` and ensure using statements are removed if no longer necessary.
