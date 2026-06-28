@@ -192,7 +192,10 @@ namespace UniGetUI.Core.Tools
                 .Replace("_", " ")
                 .Split("/")[^1]
                 .Split(":")[0];
-            string newName = "";
+
+            if (string.IsNullOrEmpty(name)) return name;
+
+            char[] newName = new char[name.Length];
             for (int i = 0; i < name.Length; i++)
             {
                 if (
@@ -201,16 +204,15 @@ namespace UniGetUI.Core.Tools
                     || name[i - 1] == '[' /* for vcpkg options */
                 )
                 {
-                    newName += name[i].ToString().ToUpper();
+                    newName[i] = char.ToUpperInvariant(name[i]);
                 }
                 else
                 {
-                    newName += name[i];
+                    newName[i] = name[i];
                 }
             }
 
-            newName = newName.Replace(" [", "[").Replace("[", " [");
-            return newName;
+            return new string(newName).Replace(" [", "[").Replace("[", " [");
         }
 
         /// <summary>
@@ -459,59 +461,61 @@ namespace UniGetUI.Core.Tools
         {
             try
             {
-                char[] separators = ['.', '-', '/', '#'];
-                string[] versionItems = ["", "", "", ""];
+                bool seenDigit = false;
+                bool seenLetterAfterDigit = false;
+                bool seenDigitAfterLetter = false;
 
-                string[] segments = version.Split(separators, StringSplitOptions.RemoveEmptyEntries);
-                foreach (var segment in segments)
+                int dotCount = 0;
+                bool first = true;
+                long[] numbers = { 0, 0, 0, 0 };
+
+                for (int i = 0; i < version.Length; i++)
                 {
-                    bool seenDigit = false;
-                    bool seenLetterAfterDigit = false;
-                    bool seenDigitAfterLetter = false;
-                    foreach (char c in segment)
+                    char c = version[i];
+                    if (c == '.' || c == '-' || c == '/' || c == '#')
+                    {
+                        if (seenDigit && seenLetterAfterDigit && seenDigitAfterLetter)
+                        {
+                            Logger.Warn(
+                                $"Version string {version} appears to contain non-numeric characters within a numeric segment and will be treated as unknown"
+                            );
+                            return CoreTools.Version.Null;
+                        }
+
+                        seenDigit = false;
+                        seenLetterAfterDigit = false;
+                        seenDigitAfterLetter = false;
+
+                        if (!first && dotCount < 3)
+                        {
+                            dotCount++;
+                        }
+                    }
+                    else
                     {
                         if (char.IsDigit(c))
                         {
-                            if (seenLetterAfterDigit)
-                                seenDigitAfterLetter = true;
+                            if (seenLetterAfterDigit) seenDigitAfterLetter = true;
                             seenDigit = true;
+                            numbers[dotCount] = numbers[dotCount] * 10 + (c - '0');
                         }
                         else if (char.IsLetter(c) && seenDigit)
                         {
                             seenLetterAfterDigit = true;
                         }
                     }
-
-                    if (seenDigit && seenLetterAfterDigit && seenDigitAfterLetter)
-                    {
-                        Logger.Warn(
-                            $"Version string {version} appears to contain non-numeric characters within a numeric segment and will be treated as unknown");
-                        return CoreTools.Version.Null;
-                    }
-                }
-
-                int dotCount = 0;
-                bool first = true;
-
-                foreach (char c in version)
-                {
-                    if (char.IsDigit(c))
-                        versionItems[dotCount] += c;
-                    else if (!first && separators.Contains(c))
-                        if (dotCount < 3)
-                            dotCount++;
                     first = false;
                 }
 
-                int[] numbers = { 0, 0, 0, 0 };
-                for (int i = 0; i < 4; i++)
+                if (seenDigit && seenLetterAfterDigit && seenDigitAfterLetter)
                 {
-                    if (int.TryParse(versionItems[i], out int val))
-                        numbers[i] = val;
+                    Logger.Warn(
+                        $"Version string {version} appears to contain non-numeric characters within a numeric segment and will be treated as unknown"
+                    );
+                    return CoreTools.Version.Null;
                 }
 
-                var ver = new Version(numbers[0], numbers[1], numbers[2], numbers[3]);
-                return ver;
+                return new Version((int)numbers[0], (int)numbers[1], (int)numbers[2], (int)numbers[3]);
             }
             catch
             {
@@ -534,20 +538,19 @@ namespace UniGetUI.Core.Tools
         /// <returns>The safe version of the query</returns>
         public static string EnsureSafeQueryString(string query)
         {
-            return query
-                .Replace(";", string.Empty)
-                .Replace("&", string.Empty)
-                .Replace("|", string.Empty)
-                .Replace(">", string.Empty)
-                .Replace("<", string.Empty)
-                .Replace("%", string.Empty)
-                .Replace("\"", string.Empty)
-                .Replace("~", string.Empty)
-                .Replace("?", string.Empty)
-                .Replace("/", string.Empty)
-                .Replace("'", string.Empty)
-                .Replace("\\", string.Empty)
-                .Replace("`", string.Empty);
+            if (string.IsNullOrEmpty(query)) return query;
+
+            StringBuilder sb = new StringBuilder(query.Length);
+            foreach (char c in query)
+            {
+                if (c != ';' && c != '&' && c != '|' && c != '>' && c != '<' &&
+                    c != '%' && c != '"' && c != '~' && c != '?' && c != '/' &&
+                    c != '\'' && c != '\\' && c != '`')
+                {
+                    sb.Append(c);
+                }
+            }
+            return sb.ToString();
         }
 
         /// <summary>

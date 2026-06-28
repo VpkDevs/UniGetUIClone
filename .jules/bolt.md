@@ -1,0 +1,3 @@
+## 2024-06-28 - Zero-Allocation Version String Parsing
+**Learning:** In C#, repeated `+=` string concatenation inside loops (like `versionItems[dotCount] += c;` inside `VersionStringToStruct`) is highly inefficient and creates significant garbage allocation, causing O(n^2) performance overhead for something called very frequently like string parsing. Similarly, `string.Replace` calls in a chain also allocate unneeded strings for simple character removals.
+**Action:** Always replace O(n^2) string concatenations with in-place character processing or integer math (e.g., `numbers[dotCount] = numbers[dotCount] * 10 + (c - '0')`). When modifying multiple characters, prefer a single pass using a pre-allocated `char[]` buffer or `StringBuilder`.
