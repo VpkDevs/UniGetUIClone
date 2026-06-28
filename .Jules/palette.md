@@ -1,0 +1,3 @@
+## 2024-05-24 - Accessibility: Use Code-Behind for Dynamic Localization of ARIA labels in WinUI
+**Learning:** Hardcoding `AutomationProperties.HelpText` or `AutomationProperties.Name` in XAML for elements like icon-only buttons means they will not be properly localized for screen readers. Instead, these properties should be assigned dynamically in the C# code-behind using the project's translation tools (e.g., `CoreTools.Translate()`).
+**Action:** Always avoid hardcoding accessibility properties in XAML if they require localization. Apply them dynamically in the control constructor or initialization block (not just in event handlers) using `AutomationProperties.SetName` and `ToolTipService.SetToolTip`, ensuring `using Microsoft.UI.Xaml.Automation;` is imported.

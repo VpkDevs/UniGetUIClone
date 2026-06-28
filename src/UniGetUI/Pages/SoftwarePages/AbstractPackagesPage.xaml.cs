@@ -7,6 +7,7 @@ using Microsoft.UI;
 using Microsoft.UI.Input;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
+using Microsoft.UI.Xaml.Automation;
 using Microsoft.UI.Xaml.Controls.Primitives;
 using Microsoft.UI.Xaml.Input;
 using Microsoft.UI.Xaml.Media;
@@ -346,6 +347,8 @@ namespace UniGetUI.Interface
             };
 
             // Hande the MegaQueryBlock search button click
+            AutomationProperties.SetName(MegaFindButton, CoreTools.Translate("Search"));
+            ToolTipService.SetToolTip(MegaFindButton, CoreTools.Translate("Search"));
             MegaFindButton.Click += (_, _) =>
             {
                 MegaQueryBlockGrid.Visibility = Visibility.Collapsed;
