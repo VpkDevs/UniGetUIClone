@@ -1,0 +1,3 @@
+## 2024-06-19 - Fast string splitting for tabular output
+**Learning:** `Regex.Replace(str, @"\s+", " ").Split(' ')` or `Regex.Replace(str, " {2,}", " ").Split(' ')` is frequently used in manager parsers to process tabular output. This requires compiling/executing a regex and allocating an intermediate string before splitting.
+**Action:** Use `str.Split((char[])null, StringSplitOptions.RemoveEmptyEntries)` for general whitespace or `str.Split(' ', StringSplitOptions.RemoveEmptyEntries)` for spaces. This is simpler and roughly 2x faster since it skips the regex engine and intermediate allocations entirely.
