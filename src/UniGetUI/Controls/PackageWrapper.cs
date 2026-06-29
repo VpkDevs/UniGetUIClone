@@ -41,6 +41,7 @@ namespace UniGetUI.PackageEngine.PackageClasses
         }
 
         public string CheckedStatus => IsChecked ? CoreTools.Translate("Checked") : CoreTools.Translate("Unchecked");
+        public string ContextMenuButtonTooltip => CoreTools.Translate("More options");
 
         public bool IconWasLoaded;
         public bool AlternateIdIconVisible;

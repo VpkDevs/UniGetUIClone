@@ -325,6 +325,8 @@
             BorderThickness="0"
             Click="{x:Bind RightClick}"
             Tapped="ContextMenuButton_Tapped"
+            AutomationProperties.Name="{x:Bind ContextMenuButtonTooltip, Mode=OneWay}"
+            ToolTipService.ToolTip="{x:Bind ContextMenuButtonTooltip, Mode=OneWay}"
           >
             <TextBlock widgets:IconBuilder.Glyph="&#xE712;" FontSize="18" />
           </Button>
@@ -472,6 +474,8 @@
             BorderThickness="0"
             Click="{x:Bind RightClick}"
             Tapped="ContextMenuButton_Tapped"
+            AutomationProperties.Name="{x:Bind ContextMenuButtonTooltip, Mode=OneWay}"
+            ToolTipService.ToolTip="{x:Bind ContextMenuButtonTooltip, Mode=OneWay}"
           >
             <TextBlock widgets:IconBuilder.Glyph="&#xE712;" FontSize="18" />
           </Button>
