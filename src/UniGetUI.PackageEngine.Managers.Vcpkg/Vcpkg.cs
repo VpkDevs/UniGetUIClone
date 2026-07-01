@@ -133,7 +133,8 @@ namespace UniGetUI.PackageEngine.Managers.VcpkgManager
                 // (note that the suboptions, with the `name[build-option]` syntax have no version)
 
                 //                                           to get rid of many spaces of padding
-                string[] PackageData = Regex.Replace(line, @"\s+", " ").Split(' ');
+                // Optimized: Replaced Regex with string.Split for better performance
+                string[] PackageData = line.Split(Array.Empty<char>(), StringSplitOptions.RemoveEmptyEntries);
                 string PackageId = PackageData[0]; // the id with the suboption
                 string PackageName = PackageId; // the actual name (id - suboption)
                 string PackageDetailedName = PackageName; // the name with a reformatted suboption reapplied (display name)
@@ -216,7 +217,8 @@ namespace UniGetUI.PackageEngine.Managers.VcpkgManager
                 if (line.StartsWith('\t'))
                 {
                     line = line.Substring(1);
-                    string[] PackageData = Regex.Replace(line, @"\s+", " ").Split(' ');
+                    // Optimized: Replaced Regex with string.Split for better performance
+                    string[] PackageData = line.Split(Array.Empty<char>(), StringSplitOptions.RemoveEmptyEntries);
                     string PackageId = PackageData[0];
                     string PackageName = PackageId.Split(':')[0],
                         PackageTriplet = PackageId.Split(':')[1],
@@ -287,7 +289,8 @@ namespace UniGetUI.PackageEngine.Managers.VcpkgManager
                 // (note that the suboptions, with the `name[build-option]` syntax have no version)
 
                 //                                           to get rid of many spaces of padding
-                string[] PackageData = Regex.Replace(line, @"\s+", " ").Split(' ');
+                // Optimized: Replaced Regex with string.Split for better performance
+                string[] PackageData = line.Split(Array.Empty<char>(), StringSplitOptions.RemoveEmptyEntries);
                 string PackageId = PackageData[0];
                 string PackageName = PackageId.Split(':')[0],
                     PackageTriplet = PackageId.Split(':')[1],

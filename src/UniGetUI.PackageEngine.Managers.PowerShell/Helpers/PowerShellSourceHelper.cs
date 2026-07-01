@@ -101,7 +101,8 @@ namespace UniGetUI.PackageEngine.Managers.PowerShellManager
                     }
                     else
                     {
-                        string[] parts = Regex.Replace(line.Trim(), " {2,}", " ").Split(' ');
+                        // Optimized: Replaced Regex with string.Split for better performance
+                        string[] parts = line.Split(Array.Empty<char>(), StringSplitOptions.RemoveEmptyEntries);
                         if (parts.Length >= 3)
                         {
                             sources.Add(
