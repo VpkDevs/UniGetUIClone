@@ -1,0 +1,3 @@
+## 2024-05-25 - Icon-only buttons accessibility
+**Learning:** Icon-only buttons in WinUI (like `<widgets:LocalIcon>`) don't inherit accessible names or tooltips automatically. When nested inside `UserControl`s or specific components like `DialogCloseButton`, they need explicit `AutomationProperties.SetName` and `ToolTipService.SetToolTip` using `CoreTools.Translate()` in the C# code-behind for localization and screen reader support.
+**Action:** When adding or modifying icon-only buttons, especially in reusable controls, set `AutomationProperties.SetName` and `ToolTipService.SetToolTip` dynamically in the constructor logic rather than hardcoding in XAML to ensure proper localization.
