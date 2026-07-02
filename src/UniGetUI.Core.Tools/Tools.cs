@@ -459,59 +459,96 @@ namespace UniGetUI.Core.Tools
         {
             try
             {
-                char[] separators = ['.', '-', '/', '#'];
-                string[] versionItems = ["", "", "", ""];
-
-                string[] segments = version.Split(separators, StringSplitOptions.RemoveEmptyEntries);
-                foreach (var segment in segments)
-                {
-                    bool seenDigit = false;
-                    bool seenLetterAfterDigit = false;
-                    bool seenDigitAfterLetter = false;
-                    foreach (char c in segment)
-                    {
-                        if (char.IsDigit(c))
-                        {
-                            if (seenLetterAfterDigit)
-                                seenDigitAfterLetter = true;
-                            seenDigit = true;
-                        }
-                        else if (char.IsLetter(c) && seenDigit)
-                        {
-                            seenLetterAfterDigit = true;
-                        }
-                    }
-
-                    if (seenDigit && seenLetterAfterDigit && seenDigitAfterLetter)
-                    {
-                        Logger.Warn(
-                            $"Version string {version} appears to contain non-numeric characters within a numeric segment and will be treated as unknown");
-                        return CoreTools.Version.Null;
-                    }
-                }
+                if (string.IsNullOrEmpty(version)) return new Version(0, 0, 0, 0);
 
                 int dotCount = 0;
-                bool first = true;
+                int n0 = 0, n1 = 0, n2 = 0, n3 = 0;
+                bool overflow0 = false, overflow1 = false, overflow2 = false, overflow3 = false;
 
-                foreach (char c in version)
+                bool seenDigit = false;
+                bool seenLetterAfterDigit = false;
+                bool seenDigitAfterLetter = false;
+
+                for (int i = 0; i < version.Length; i++)
                 {
-                    if (char.IsDigit(c))
-                        versionItems[dotCount] += c;
-                    else if (!first && separators.Contains(c))
-                        if (dotCount < 3)
+                    char c = version[i];
+
+                    if (c == '.' || c == '-' || c == '/' || c == '#')
+                    {
+                        if (seenDigit && seenLetterAfterDigit && seenDigitAfterLetter)
+                        {
+                            Logger.Warn($"Version string {version} appears to contain non-numeric characters within a numeric segment and will be treated as unknown");
+                            return CoreTools.Version.Null;
+                        }
+
+                        seenDigit = false;
+                        seenLetterAfterDigit = false;
+                        seenDigitAfterLetter = false;
+
+                        if (i > 0 && dotCount < 3)
+                        {
                             dotCount++;
-                    first = false;
+                        }
+                    }
+                    else if ((uint)(c - '0') <= 9)
+                    {
+                        if (seenLetterAfterDigit)
+                            seenDigitAfterLetter = true;
+                        seenDigit = true;
+
+                        int digitValue = c - '0';
+                        if (dotCount == 0 && !overflow0) {
+                            long val = (long)n0 * 10 + digitValue;
+                            if (val <= int.MaxValue) n0 = (int)val; else { n0 = 0; overflow0 = true; }
+                        } else if (dotCount == 1 && !overflow1) {
+                            long val = (long)n1 * 10 + digitValue;
+                            if (val <= int.MaxValue) n1 = (int)val; else { n1 = 0; overflow1 = true; }
+                        } else if (dotCount == 2 && !overflow2) {
+                            long val = (long)n2 * 10 + digitValue;
+                            if (val <= int.MaxValue) n2 = (int)val; else { n2 = 0; overflow2 = true; }
+                        } else if (dotCount == 3 && !overflow3) {
+                            long val = (long)n3 * 10 + digitValue;
+                            if (val <= int.MaxValue) n3 = (int)val; else { n3 = 0; overflow3 = true; }
+                        }
+                    }
+                    else if (char.IsLetter(c))
+                    {
+                        if (seenDigit)
+                            seenLetterAfterDigit = true;
+                    }
+                    else if (char.IsDigit(c))
+                    {
+                        if (seenLetterAfterDigit)
+                            seenDigitAfterLetter = true;
+                        seenDigit = true;
+
+                        int digitValue = (int)char.GetNumericValue(c);
+                        if (digitValue >= 0 && digitValue <= 9)
+                        {
+                            if (dotCount == 0 && !overflow0) {
+                                long val = (long)n0 * 10 + digitValue;
+                                if (val <= int.MaxValue) n0 = (int)val; else { n0 = 0; overflow0 = true; }
+                            } else if (dotCount == 1 && !overflow1) {
+                                long val = (long)n1 * 10 + digitValue;
+                                if (val <= int.MaxValue) n1 = (int)val; else { n1 = 0; overflow1 = true; }
+                            } else if (dotCount == 2 && !overflow2) {
+                                long val = (long)n2 * 10 + digitValue;
+                                if (val <= int.MaxValue) n2 = (int)val; else { n2 = 0; overflow2 = true; }
+                            } else if (dotCount == 3 && !overflow3) {
+                                long val = (long)n3 * 10 + digitValue;
+                                if (val <= int.MaxValue) n3 = (int)val; else { n3 = 0; overflow3 = true; }
+                            }
+                        }
+                    }
                 }
 
-                int[] numbers = { 0, 0, 0, 0 };
-                for (int i = 0; i < 4; i++)
+                if (seenDigit && seenLetterAfterDigit && seenDigitAfterLetter)
                 {
-                    if (int.TryParse(versionItems[i], out int val))
-                        numbers[i] = val;
+                    Logger.Warn($"Version string {version} appears to contain non-numeric characters within a numeric segment and will be treated as unknown");
+                    return CoreTools.Version.Null;
                 }
 
-                var ver = new Version(numbers[0], numbers[1], numbers[2], numbers[3]);
-                return ver;
+                return new Version(n0, n1, n2, n3);
             }
             catch
             {
