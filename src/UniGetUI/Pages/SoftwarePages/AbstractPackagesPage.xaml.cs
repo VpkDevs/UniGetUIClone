@@ -6,6 +6,7 @@ using CommunityToolkit.WinUI;
 using Microsoft.UI;
 using Microsoft.UI.Input;
 using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Automation;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Controls.Primitives;
 using Microsoft.UI.Xaml.Input;
@@ -298,6 +299,15 @@ namespace UniGetUI.Interface
             ToolTipService.SetToolTip(Selector_List, CoreTools.Translate("List"));
             ToolTipService.SetToolTip(Selector_Grid, CoreTools.Translate("Grid"));
             ToolTipService.SetToolTip(Selector_Icons, CoreTools.Translate("Icons"));
+
+            AutomationProperties.SetName(ToggleFiltersButton, CoreTools.Translate("Toggle filters panel"));
+            ToolTipService.SetToolTip(ToggleFiltersButton, CoreTools.Translate("Toggle filters panel"));
+
+            AutomationProperties.SetName(MainToolbarButtonDropdown, CoreTools.Translate("More actions"));
+            ToolTipService.SetToolTip(MainToolbarButtonDropdown, CoreTools.Translate("More actions"));
+
+            AutomationProperties.SetName(MegaFindButton, CoreTools.Translate("Search"));
+            ToolTipService.SetToolTip(MegaFindButton, CoreTools.Translate("Search"));
 
             MainTitle.Text = data.PageTitle;
             HeaderIcon.Glyph = data.Glyph;

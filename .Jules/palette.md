@@ -1,0 +1,3 @@
+## 2026-07-02 - Dynamic Accessibility Properties in WinUI
+**Learning:** In WinUI, icon-only buttons (like `<FontIcon>` or `<widgets:LocalIcon>`) must have their accessibility properties set dynamically in the C# code-behind using `AutomationProperties.SetName()` and `ToolTipService.SetToolTip()` with `CoreTools.Translate()` to support both screen readers and localization. This requires removing hardcoded attributes from XAML and ensuring `Microsoft.UI.Xaml.Automation` and `UniGetUI.Core.Tools` namespaces are imported in the code-behind.
+**Action:** Always check XAML files for hardcoded `AutomationProperties.Name` or `AutomationProperties.HelpText` attributes on UI controls and move them to code-behind with translation strings if localization is required.
