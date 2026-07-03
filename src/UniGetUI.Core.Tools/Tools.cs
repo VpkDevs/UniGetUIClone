@@ -460,7 +460,6 @@ namespace UniGetUI.Core.Tools
             try
             {
                 char[] separators = ['.', '-', '/', '#'];
-                string[] versionItems = ["", "", "", ""];
 
                 string[] segments = version.Split(separators, StringSplitOptions.RemoveEmptyEntries);
                 foreach (var segment in segments)
@@ -492,25 +491,28 @@ namespace UniGetUI.Core.Tools
 
                 int dotCount = 0;
                 bool first = true;
+                long[] numbers = { 0, 0, 0, 0 };
 
                 foreach (char c in version)
                 {
                     if (char.IsDigit(c))
-                        versionItems[dotCount] += c;
+                        numbers[dotCount] = numbers[dotCount] * 10 + (c - '0');
                     else if (!first && separators.Contains(c))
                         if (dotCount < 3)
                             dotCount++;
                     first = false;
                 }
 
-                int[] numbers = { 0, 0, 0, 0 };
+                int[] intNumbers = { 0, 0, 0, 0 };
                 for (int i = 0; i < 4; i++)
                 {
-                    if (int.TryParse(versionItems[i], out int val))
-                        numbers[i] = val;
+                    if (numbers[i] <= int.MaxValue)
+                    {
+                        intNumbers[i] = (int)numbers[i];
+                    }
                 }
 
-                var ver = new Version(numbers[0], numbers[1], numbers[2], numbers[3]);
+                var ver = new Version(intNumbers[0], intNumbers[1], intNumbers[2], intNumbers[3]);
                 return ver;
             }
             catch
