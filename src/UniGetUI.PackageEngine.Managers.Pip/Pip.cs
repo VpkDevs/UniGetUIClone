@@ -1,6 +1,5 @@
 using System.Diagnostics;
 using System.Text.Json.Nodes;
-using System.Text.RegularExpressions;
 using UniGetUI.Core.Data;
 using UniGetUI.Core.Logging;
 using UniGetUI.Core.SettingsEngine;
@@ -380,9 +379,7 @@ namespace UniGetUI.PackageEngine.Managers.PipManager
                     continue;
                 }
 
-                string[] elements = Regex
-                    .Replace(line.Trim(), " {2,}", " ")
-                    .Split(' ', StringSplitOptions.RemoveEmptyEntries);
+                string[] elements = line.Split(' ', StringSplitOptions.RemoveEmptyEntries);
                 if (elements.Length < requiredElements)
                 {
                     continue;
