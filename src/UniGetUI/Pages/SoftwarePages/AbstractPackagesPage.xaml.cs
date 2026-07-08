@@ -6,6 +6,7 @@ using CommunityToolkit.WinUI;
 using Microsoft.UI;
 using Microsoft.UI.Input;
 using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Automation;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Controls.Primitives;
 using Microsoft.UI.Xaml.Input;
@@ -295,9 +296,26 @@ namespace UniGetUI.Interface
             ViewModeSelector.SelectedIndex = viewMode;
             GenerateHeaderBarTitles();
 
-            ToolTipService.SetToolTip(Selector_List, CoreTools.Translate("List"));
-            ToolTipService.SetToolTip(Selector_Grid, CoreTools.Translate("Grid"));
-            ToolTipService.SetToolTip(Selector_Icons, CoreTools.Translate("Icons"));
+            var listText = CoreTools.Translate("List view");
+            var gridText = CoreTools.Translate("Grid view");
+            var iconsText = CoreTools.Translate("Icons view");
+
+            ToolTipService.SetToolTip(Selector_List, listText);
+            AutomationProperties.SetName(Selector_List, listText);
+
+            ToolTipService.SetToolTip(Selector_Grid, gridText);
+            AutomationProperties.SetName(Selector_Grid, gridText);
+
+            ToolTipService.SetToolTip(Selector_Icons, iconsText);
+            AutomationProperties.SetName(Selector_Icons, iconsText);
+
+            var toggleFiltersText = CoreTools.Translate("Toggle filters panel");
+            ToolTipService.SetToolTip(ToggleFiltersButton, toggleFiltersText);
+            AutomationProperties.SetName(ToggleFiltersButton, toggleFiltersText);
+
+            var moreActionsText = CoreTools.Translate("More actions");
+            ToolTipService.SetToolTip(MainToolbarButtonDropdown, moreActionsText);
+            AutomationProperties.SetName(MainToolbarButtonDropdown, moreActionsText);
 
             MainTitle.Text = data.PageTitle;
             HeaderIcon.Glyph = data.Glyph;

@@ -1,0 +1,3 @@
+## 2024-11-20 - Localize WinUI Icon-Only Button Labels
+**Learning:** In WinUI, icon-only buttons need `AutomationProperties.SetName` (and `ToolTipService.SetToolTip`) dynamically set in the C# code-behind using the centralized localization framework (`CoreTools.Translate()`). Hardcoding `AutomationProperties.Name` in XAML prevents screen readers from receiving localized strings.
+**Action:** When adding or updating ARIA/Automation names for icon-only components in WinUI, remove hardcoded English strings from the XAML and ensure dynamic, translated assignment via the code-behind using `CoreTools.Translate()`. Note that this requires the `Microsoft.UI.Xaml.Automation` namespace.
