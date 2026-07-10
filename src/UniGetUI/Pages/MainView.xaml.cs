@@ -1,5 +1,6 @@
 using Microsoft.UI.Input;
 using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Automation;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Controls.Primitives;
 using UniGetUI.Controls;
@@ -66,6 +67,12 @@ namespace UniGetUI.Interface
         public MainView(AutoSuggestBox mainTextBlock)
         {
             InitializeComponent();
+
+            AutomationProperties.SetName(OperationSplitterMenuButton, CoreTools.Translate("More actions"));
+            ToolTipService.SetToolTip(OperationSplitterMenuButton, CoreTools.Translate("More actions"));
+            AutomationProperties.SetName(ExpandCollapseOpList, CoreTools.Translate("Expand or collapse operation list"));
+            ToolTipService.SetToolTip(ExpandCollapseOpList, CoreTools.Translate("Expand or collapse operation list"));
+
             MainTextBlock = mainTextBlock;
             OperationList.ItemContainerTransitions = null;
             OperationList.ItemsSource = MainApp.Operations._operationList;

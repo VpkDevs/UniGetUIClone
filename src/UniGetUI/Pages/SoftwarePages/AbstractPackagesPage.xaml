@@ -663,7 +663,6 @@
           </Button>
           <Button
             x:Name="MainToolbarButtonDropdown"
-            AutomationProperties.Name="More actions"
             Width="30"
             Height="36"
             Padding="4"
@@ -1222,7 +1221,6 @@
             Height="64"
             Padding="12"
             x:FieldModifier="protected"
-            AutomationProperties.HelpText="Search"
             CornerRadius="0,8,8,0"
           >
             <AnimatedIcon>
