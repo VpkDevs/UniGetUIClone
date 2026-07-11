@@ -54,9 +54,6 @@ public static class NativePackageHandler
     /// Get (cached or load) the native package details for the given package, if any;
     /// </summary>
     public static CatalogPackageMetadata? GetDetails(IPackage package)
-    //    => TaskRecycler<CatalogPackageMetadata?>.RunOrAttach(_getDetails, package);
-    //
-    //private static CatalogPackageMetadata? _getDetails(IPackage package)
     {
         try
         {
@@ -96,9 +93,6 @@ public static class NativePackageHandler
         InstallOptions unigetuiOptions,
         OperationType operation
     )
-    //    =>  TaskRecycler<PackageInstallerInfo?>.RunOrAttach(_getInstallationOptions, package, operation);
-    //
-    //private static PackageInstallerInfo? _getInstallationOptions(IPackage package, OperationType operation)
     {
         if (NativeWinGetHelper.ExternalFactory is null)
             return null;
