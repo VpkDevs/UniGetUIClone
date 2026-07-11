@@ -1,0 +1,3 @@
+## 2024-05-19 - Missing Dynamic Accessibility Attributes on Stateful Icons
+**Learning:** In WinUI, when UI elements like `ExpandCollapseOpList` toggle button changes its visual state (e.g., its FontIcon switches from expand to collapse), the corresponding accessibility properties (`AutomationProperties.SetName` and `ToolTipService.SetToolTip`) must be dynamically updated in the event handler to accurately reflect the current state for screen readers and mouse users. Hardcoding them in XAML only covers the initial state.
+**Action:** When inspecting stateful icon-only buttons, check their C# event handlers to ensure accessibility properties are updated alongside the visual icon change.
