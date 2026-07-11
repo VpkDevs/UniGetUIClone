@@ -1,5 +1,4 @@
 using System.Diagnostics;
-using System.Text.RegularExpressions;
 using UniGetUI.Core.Tools;
 using UniGetUI.Interface.Enums;
 using UniGetUI.PackageEngine.Classes.Manager;
@@ -201,7 +200,7 @@ namespace UniGetUI.PackageEngine.Managers.DotNetManager
                     continue;
                 }
 
-                string[] elements = Regex.Replace(rawLine, " {2,}", " ").Split(' ');
+                string[] elements = rawLine.Split(' ', StringSplitOptions.RemoveEmptyEntries);
                 if (elements.Length < 2)
                 {
                     continue;

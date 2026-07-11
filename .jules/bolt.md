@@ -1,0 +1,3 @@
+## 2024-03-20 - [Zero-Allocation Whitespace Tokenization]
+**Learning:** In C#, replacing `Regex.Replace(line, @"\s+", " ").Split(' ')` with `line.Split(Array.Empty<char>(), StringSplitOptions.RemoveEmptyEntries)` or `line.Split(' ', StringSplitOptions.RemoveEmptyEntries)` dramatically improves performance by removing memory allocations, skipping regex parsing, and completing tokenization directly via string parsing. Note that `Array.Empty<char>()` works correctly for matching all whitespace in `#nullable enable` contexts without throwing warnings for null.
+**Action:** Always prefer `String.Split` with `StringSplitOptions.RemoveEmptyEntries` over Regex for tokenizing whitespace-separated strings like CLI outputs.
