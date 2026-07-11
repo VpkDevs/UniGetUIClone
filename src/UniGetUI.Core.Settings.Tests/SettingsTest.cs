@@ -559,5 +559,100 @@ namespace UniGetUI.Core.SettingsEngine.Tests
                 Assert.NotEmpty(Settings.ResolveKey(key));
             }
         }
+
+        [Fact]
+        public void TestNotificationDisabledMethods()
+        {
+            // Reset/Setup initially
+            Settings.Set(Settings.K.DisableSystemTray, false);
+            Settings.Set(Settings.K.DisableNotifications, false);
+            Settings.Set(Settings.K.DisableUpdatesNotifications, false);
+            Settings.Set(Settings.K.DisableErrorNotifications, false);
+            Settings.Set(Settings.K.DisableSuccessNotifications, false);
+            Settings.Set(Settings.K.DisableProgressNotifications, false);
+
+            // 1. Test AreNotificationsDisabled
+            // Combination 1: both false
+            Assert.False(Settings.AreNotificationsDisabled());
+
+            // Combination 2: DisableSystemTray is true
+            Settings.Set(Settings.K.DisableSystemTray, true);
+            Assert.True(Settings.AreNotificationsDisabled());
+
+            // Combination 3: DisableNotifications is true
+            Settings.Set(Settings.K.DisableSystemTray, false);
+            Settings.Set(Settings.K.DisableNotifications, true);
+            Assert.True(Settings.AreNotificationsDisabled());
+
+            // Combination 4: both true
+            Settings.Set(Settings.K.DisableSystemTray, true);
+            Settings.Set(Settings.K.DisableNotifications, true);
+            Assert.True(Settings.AreNotificationsDisabled());
+
+            // Reset AreNotificationsDisabled settings to false for specific sub-checks
+            Settings.Set(Settings.K.DisableSystemTray, false);
+            Settings.Set(Settings.K.DisableNotifications, false);
+
+            // 2. Test AreUpdatesNotificationsDisabled
+            // Case 2a: AreNotificationsDisabled is false, DisableUpdatesNotifications is false
+            Assert.False(Settings.AreUpdatesNotificationsDisabled());
+            // Case 2b: AreNotificationsDisabled is false, DisableUpdatesNotifications is true
+            Settings.Set(Settings.K.DisableUpdatesNotifications, true);
+            Assert.True(Settings.AreUpdatesNotificationsDisabled());
+            // Case 2c: AreNotificationsDisabled is true, DisableUpdatesNotifications is false
+            Settings.Set(Settings.K.DisableUpdatesNotifications, false);
+            Settings.Set(Settings.K.DisableNotifications, true);
+            Assert.True(Settings.AreUpdatesNotificationsDisabled());
+            // Reset
+            Settings.Set(Settings.K.DisableNotifications, false);
+            Settings.Set(Settings.K.DisableUpdatesNotifications, false);
+
+            // 3. Test AreErrorNotificationsDisabled
+            // Case 3a: AreNotificationsDisabled is false, DisableErrorNotifications is false
+            Assert.False(Settings.AreErrorNotificationsDisabled());
+            // Case 3b: AreNotificationsDisabled is false, DisableErrorNotifications is true
+            Settings.Set(Settings.K.DisableErrorNotifications, true);
+            Assert.True(Settings.AreErrorNotificationsDisabled());
+            // Case 3c: AreNotificationsDisabled is true, DisableErrorNotifications is false
+            Settings.Set(Settings.K.DisableErrorNotifications, false);
+            Settings.Set(Settings.K.DisableNotifications, true);
+            Assert.True(Settings.AreErrorNotificationsDisabled());
+            // Reset
+            Settings.Set(Settings.K.DisableNotifications, false);
+            Settings.Set(Settings.K.DisableErrorNotifications, false);
+
+            // 4. Test AreSuccessNotificationsDisabled
+            // Case 4a: AreNotificationsDisabled is false, DisableSuccessNotifications is false
+            Assert.False(Settings.AreSuccessNotificationsDisabled());
+            // Case 4b: AreNotificationsDisabled is false, DisableSuccessNotifications is true
+            Settings.Set(Settings.K.DisableSuccessNotifications, true);
+            Assert.True(Settings.AreSuccessNotificationsDisabled());
+            // Case 4c: AreNotificationsDisabled is true, DisableSuccessNotifications is false
+            Settings.Set(Settings.K.DisableSuccessNotifications, false);
+            Settings.Set(Settings.K.DisableNotifications, true);
+            Assert.True(Settings.AreSuccessNotificationsDisabled());
+            // Reset
+            Settings.Set(Settings.K.DisableNotifications, false);
+            Settings.Set(Settings.K.DisableSuccessNotifications, false);
+
+            // 5. Test AreProgressNotificationsDisabled
+            // Case 5a: AreNotificationsDisabled is false, DisableProgressNotifications is false
+            Assert.False(Settings.AreProgressNotificationsDisabled());
+            // Case 5b: AreNotificationsDisabled is false, DisableProgressNotifications is true
+            Settings.Set(Settings.K.DisableProgressNotifications, true);
+            Assert.True(Settings.AreProgressNotificationsDisabled());
+            // Case 5c: AreNotificationsDisabled is true, DisableProgressNotifications is false
+            Settings.Set(Settings.K.DisableProgressNotifications, false);
+            Settings.Set(Settings.K.DisableNotifications, true);
+            Assert.True(Settings.AreProgressNotificationsDisabled());
+
+            // Cleanup/Reset at the end
+            Settings.Set(Settings.K.DisableSystemTray, false);
+            Settings.Set(Settings.K.DisableNotifications, false);
+            Settings.Set(Settings.K.DisableUpdatesNotifications, false);
+            Settings.Set(Settings.K.DisableErrorNotifications, false);
+            Settings.Set(Settings.K.DisableSuccessNotifications, false);
+            Settings.Set(Settings.K.DisableProgressNotifications, false);
+        }
     }
 }
