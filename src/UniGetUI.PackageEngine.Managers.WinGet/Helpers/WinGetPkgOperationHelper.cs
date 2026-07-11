@@ -268,7 +268,8 @@ internal sealed class WinGetPkgOperationHelper : BasePkgOperationHelper
         }
 
         if (uintCode is 0x8A150011)
-        { // TODO: Integrity failed
+        {
+            Logger.Error($"WinGet integrity check failed (installer hash mismatch) for package {package.Id}");
             return OperationVeredict.Failure;
         }
 

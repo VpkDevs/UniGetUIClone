@@ -849,6 +849,25 @@ public sealed class WinGetManagerTests : IDisposable
     }
 
     [Fact]
+    public void GetResultReturnsFailureForIntegrityError()
+    {
+        var manager = new WinGet();
+        var package = new PackageBuilder()
+            .WithManager(manager)
+            .WithId("Contoso.Tool")
+            .Build();
+
+        var veredict = manager.OperationHelper.GetResult(
+            package,
+            OperationType.Install,
+            [],
+            0x8A150011
+        );
+
+        Assert.Equal(OperationVeredict.Failure, veredict);
+    }
+
+    [Fact]
     public void WinGetOperationHelperOmitsProxyArgumentForPinget()
     {
         Settings.Set(Settings.K.EnableProxy, true);
