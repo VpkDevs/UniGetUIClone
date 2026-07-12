@@ -1,0 +1,3 @@
+## 2024-07-12 - Dynamic accessibility properties for icon-only buttons
+**Learning:** In WinUI, icon-only buttons that change state need their `AutomationProperties.Name` and `ToolTipService.ToolTip` updated dynamically in C# code-behind, otherwise the screen reader and tooltip might have the wrong text or be missing entirely. `OperationSplitterMenuButton` also needs tooltips and ARIA-like labels for accessibility since they are just icons without text.
+**Action:** When working on WinUI C# code-behind for UI components with dynamic states, utilize `AutomationProperties.SetName` and `ToolTipService.SetToolTip` with `CoreTools.Translate()`, and import `Microsoft.UI.Xaml.Automation` and `UniGetUI.Core.Tools`.
