@@ -1,0 +1,3 @@
+## 2024-07-14 - Replace Regex string split
+**Learning:** `Regex.Replace(line, @"\s+", " ").Split(' ')` allocates heavily due to Regex state machine usage and intermediate strings. Using `line.Split(Array.Empty<char>(), StringSplitOptions.RemoveEmptyEntries)` is vastly more efficient for splitting strings by arbitrary whitespace. The pattern `Regex.Replace(line, " {2,}", " ").Split(' ')` also falls into the same bucket. The `.Split(Array.Empty<char>())` effectively treats any contiguous whitespace sequence as a delimiter and avoids intermediate array items.
+**Action:** Replaced usage of Regex.Replace with Split.
