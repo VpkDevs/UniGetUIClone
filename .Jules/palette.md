@@ -1,0 +1,3 @@
+## 2024-05-18 - Dynamic ARIA properties for dynamic visual states
+**Learning:** When icon buttons change visual state (like a glyph toggle), hardcoded XAML `AutomationProperties` become stale and cannot easily be localized. WinUI requires these properties to be updated dynamically in the C# code-behind event handlers utilizing the localized translation framework so screen readers stay synced with the visual state.
+**Action:** When migrating XAML `AutomationProperties` to C# code-behind for localization, ensure initial state is set in constructor and any visual state toggle handlers update `AutomationProperties.SetName` and `ToolTipService.SetToolTip` correspondingly.
