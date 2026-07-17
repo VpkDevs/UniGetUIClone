@@ -247,10 +247,7 @@ namespace UniGetUI.PackageEngine.Managers.ScoopManager
                     continue;
                 }
 
-                string[] elements = Regex
-                    .Replace(line, " {2,}", " ")
-                    .Trim()
-                    .Split(' ', StringSplitOptions.RemoveEmptyEntries);
+                string[] elements = line.Split(Array.Empty<char>(), StringSplitOptions.RemoveEmptyEntries);
                 if (elements.Length < 3)
                 {
                     continue;
@@ -316,10 +313,7 @@ namespace UniGetUI.PackageEngine.Managers.ScoopManager
                     continue;
                 }
 
-                string[] elements = Regex
-                    .Replace(line, " {2,}", " ")
-                    .Trim()
-                    .Split(' ', StringSplitOptions.RemoveEmptyEntries);
+                string[] elements = line.Split(Array.Empty<char>(), StringSplitOptions.RemoveEmptyEntries);
                 if (elements.Length < 3)
                 {
                     continue;
