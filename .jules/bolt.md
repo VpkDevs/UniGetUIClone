@@ -1,0 +1,3 @@
+## 2024-05-19 - Performance: Replaced Regex.Replace with String.Split
+**Learning:** Using `Regex.Replace` (e.g., `Regex.Replace(line, @"\s+", " ")`) to clean up multiple spaces before calling `Split(' ')` incurs significant overhead due to Regex engine initialization and execution within loops parsing output logs from package managers.
+**Action:** When tokenizing tabular CLI output separated by multiple spaces or whitespace, prefer using `string.Split(Array.Empty<char>(), StringSplitOptions.RemoveEmptyEntries)` or `string.Split(' ', StringSplitOptions.RemoveEmptyEntries)` rather than pre-processing the string with `Regex.Replace`.
