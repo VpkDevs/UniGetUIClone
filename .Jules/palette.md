@@ -1,0 +1,3 @@
+## 2024-07-20 - Ensure icon-only buttons have accessible names and tooltips
+**Learning:** Found multiple instances where WinUI 3 icon-only buttons (like those using `<FontIcon>`) lacked `AutomationProperties.Name` and tooltips, making them inaccessible to screen readers and difficult to understand for users. Given the codebase structure, these properties should ideally be applied programmatically using `CoreTools.Translate()` in the C# code-behind to support localization.
+**Action:** Always verify icon-only UI elements have both `AutomationProperties.SetName` and `ToolTipService.SetToolTip` configured appropriately in the component constructor.

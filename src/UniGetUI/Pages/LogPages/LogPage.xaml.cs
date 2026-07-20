@@ -2,6 +2,7 @@ using System.Diagnostics;
 using ExternalLibraries.Clipboard;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
+using Microsoft.UI.Xaml.Automation;
 using UniGetUI.Core.Tools;
 using Windows.Storage;
 using Windows.Storage.Pickers;
@@ -30,6 +31,13 @@ namespace UniGetUI.Interface.Pages
                 LoadLogLevels();
 
             ActualThemeChanged += (_, _) => LoadLog();
+
+            AutomationProperties.SetName(CopyButton, CoreTools.Translate("Copy to clipboard"));
+            ToolTipService.SetToolTip(CopyButton, CoreTools.Translate("Copy to clipboard"));
+            AutomationProperties.SetName(ExportButton, CoreTools.Translate("Export to a file"));
+            ToolTipService.SetToolTip(ExportButton, CoreTools.Translate("Export to a file"));
+            AutomationProperties.SetName(ReloadButton, CoreTools.Translate("Reload log"));
+            ToolTipService.SetToolTip(ReloadButton, CoreTools.Translate("Reload log"));
         }
 
         protected void SelectLogLevelByName(string name)

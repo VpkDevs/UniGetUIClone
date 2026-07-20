@@ -1,5 +1,6 @@
 using System.Collections.ObjectModel;
 using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Automation;
 using Microsoft.UI.Xaml.Controls;
 using UniGetUI.Controls.OperationWidgets;
 using UniGetUI.Core.Logging;
@@ -58,6 +59,9 @@ namespace UniGetUI.Interface.Widgets
 
             Header.Text = CoreTools.Translate("Manage {0} sources", Manager.DisplayName);
             AddSourceButton.Content = CoreTools.Translate("Add source");
+
+            AutomationProperties.SetName(ReloadButton, CoreTools.Translate("Reload"));
+            ToolTipService.SetToolTip(ReloadButton, CoreTools.Translate("Reload"));
             AddSourceButton.Click += async (sender, e) =>
             {
                 try
