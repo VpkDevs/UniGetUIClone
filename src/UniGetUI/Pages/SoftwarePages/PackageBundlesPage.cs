@@ -691,7 +691,7 @@ namespace UniGetUI.Interface.SoftwarePages
             {
                 var opts = pkg.InstallationOptions;
 
-                if (opts.CustomParameters_Install.Where(x => x.Any()).Any())
+                if (opts.CustomParameters_Install.Any(x => x.Any()))
                 {
                     report.IsEmpty = false;
                     if (!report.Contents.ContainsKey(pkg.Id))
@@ -707,7 +707,7 @@ namespace UniGetUI.Interface.SoftwarePages
                     if (!AllowCLIParameters)
                         opts.CustomParameters_Install.Clear();
                 }
-                if (opts.CustomParameters_Update.Where(x => x.Any()).Any())
+                if (opts.CustomParameters_Update.Any(x => x.Any()))
                 {
                     report.IsEmpty = false;
                     if (!report.Contents.ContainsKey(pkg.Id))
@@ -723,7 +723,7 @@ namespace UniGetUI.Interface.SoftwarePages
                     if (!AllowCLIParameters)
                         opts.CustomParameters_Update.Clear();
                 }
-                if (opts.CustomParameters_Uninstall.Where(x => x.Any()).Any())
+                if (opts.CustomParameters_Uninstall.Any(x => x.Any()))
                 {
                     report.IsEmpty = false;
                     if (!report.Contents.ContainsKey(pkg.Id))
