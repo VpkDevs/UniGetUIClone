@@ -1,5 +1,6 @@
 using System.Diagnostics;
 using System.Text;
+using System.Text.RegularExpressions;
 using UniGetUI.Core.Logging;
 using UniGetUI.Core.Tools;
 using UniGetUI.PackageEngine.Classes.Manager;
@@ -548,7 +549,7 @@ internal sealed class WinGetCliHelper : IWinGetManagerHelper
                 }
                 else
                 {
-                    string[] parts = line.Trim().Split(' ', StringSplitOptions.RemoveEmptyEntries);
+                    string[] parts = Regex.Replace(line.Trim(), " {2,}", " ").Split(' ');
                     if (parts.Length > 1)
                     {
                         sources.Add(

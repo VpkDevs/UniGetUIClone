@@ -106,7 +106,7 @@ namespace UniGetUI.PackageEngine.Managers.PowerShell7Manager
                     }
                     else
                     {
-                        string[] parts = line.Trim().Split(' ', StringSplitOptions.RemoveEmptyEntries);
+                        string[] parts = Regex.Replace(line.Trim(), " {2,}", " ").Split(' ');
                         if (parts.Length >= 2)
                         {
                             string uri = Regex

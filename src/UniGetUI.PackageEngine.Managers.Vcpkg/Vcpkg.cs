@@ -1,6 +1,7 @@
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Text;
+using System.Text.RegularExpressions;
 using UniGetUI.Core.Data;
 using UniGetUI.Core.Logging;
 using UniGetUI.Core.SettingsEngine;
@@ -132,7 +133,7 @@ namespace UniGetUI.PackageEngine.Managers.VcpkgManager
                 // (note that the suboptions, with the `name[build-option]` syntax have no version)
 
                 //                                           to get rid of many spaces of padding
-                string[] PackageData = line.Split((char[])null, StringSplitOptions.RemoveEmptyEntries);
+                string[] PackageData = Regex.Replace(line, @"\s+", " ").Split(' ');
                 string PackageId = PackageData[0]; // the id with the suboption
                 string PackageName = PackageId; // the actual name (id - suboption)
                 string PackageDetailedName = PackageName; // the name with a reformatted suboption reapplied (display name)
@@ -215,7 +216,7 @@ namespace UniGetUI.PackageEngine.Managers.VcpkgManager
                 if (line.StartsWith('\t'))
                 {
                     line = line.Substring(1);
-                    string[] PackageData = line.Split((char[])null, StringSplitOptions.RemoveEmptyEntries);
+                    string[] PackageData = Regex.Replace(line, @"\s+", " ").Split(' ');
                     string PackageId = PackageData[0];
                     string PackageName = PackageId.Split(':')[0],
                         PackageTriplet = PackageId.Split(':')[1],
@@ -286,7 +287,7 @@ namespace UniGetUI.PackageEngine.Managers.VcpkgManager
                 // (note that the suboptions, with the `name[build-option]` syntax have no version)
 
                 //                                           to get rid of many spaces of padding
-                string[] PackageData = line.Split((char[])null, StringSplitOptions.RemoveEmptyEntries);
+                string[] PackageData = Regex.Replace(line, @"\s+", " ").Split(' ');
                 string PackageId = PackageData[0];
                 string PackageName = PackageId.Split(':')[0],
                     PackageTriplet = PackageId.Split(':')[1],
