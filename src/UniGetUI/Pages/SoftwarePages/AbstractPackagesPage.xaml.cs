@@ -6,7 +6,6 @@ using CommunityToolkit.WinUI;
 using Microsoft.UI;
 using Microsoft.UI.Input;
 using Microsoft.UI.Xaml;
-using Microsoft.UI.Xaml.Automation;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Controls.Primitives;
 using Microsoft.UI.Xaml.Input;
@@ -285,9 +284,6 @@ namespace UniGetUI.Interface
 
             // Load UI
             InitializeComponent();
-
-            AutomationProperties.SetName(MegaFindButton, CoreTools.Translate("Search"));
-            ToolTipService.SetToolTip(MegaFindButton, CoreTools.Translate("Search"));
 
             // Selection of grid view mode
             int viewMode = Settings.GetDictionaryItem<string, int>(
