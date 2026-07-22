@@ -1,0 +1,3 @@
+## 2025-01-23 - Performance: String.Split with Array.Empty<char>() vs Regex.Replace
+**Learning:** In C#, preprocessing tabular CLI output strings with `Regex.Replace(line, @"\s+", " ")` to remove multiple spaces before splitting is inefficient. `line.Split(Array.Empty<char>(), StringSplitOptions.RemoveEmptyEntries)` achieves the exact same tokenization significantly faster with fewer allocations, effectively treating all continuous whitespace as single delimiters.
+**Action:** When tokenizing tabular CLI output separated by multiple spaces in C#, prefer using `string.Split(Array.Empty<char>(), StringSplitOptions.RemoveEmptyEntries)` instead of intermediate `Regex` processing.
