@@ -1,0 +1,3 @@
+## 2026-07-23 - Simplify LINQ chains for zero-allocation
+**Learning:** Chained LINQ methods like `.Where(predicate).Any()` and `.Where(predicate).Count()` create unnecessary intermediate `IEnumerable` allocations. Furthermore, for strings, `.Where(x => x == char).Any()` is significantly slower than using the highly optimized internal string searching method `.Contains(char)`.
+**Action:** Always collapse chained LINQ methods into their optimized single-pass equivalents (e.g., `.Any(predicate)`, `.Count(predicate)`) and prefer native string methods over LINQ for single-character searches to fully eliminate memory allocation overhead and improve execution speed.
