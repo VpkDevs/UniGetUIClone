@@ -254,6 +254,8 @@
               Flyout="{x:Bind OpMenu}"
               GotFocus="{x:Bind LoadMenu}"
               PointerEntered="{x:Bind LoadMenu}"
+              ToolTipService.ToolTip="{x:Bind OptionsTooltip}"
+              AutomationProperties.Name="{x:Bind OptionsTooltip}"
             >
               <SymbolIcon Symbol="More" />
             </Button>

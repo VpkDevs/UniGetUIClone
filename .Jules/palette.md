@@ -1,0 +1,3 @@
+## 2024-07-23 - Adding ARIA labels/tooltips to WinUI 3 icon-only buttons
+**Learning:** In WinUI 3 (UWP/Windows App SDK), when an icon-only button is part of a `DataTemplate`, direct code-behind manipulation for accessibility is limited. `AutomationProperties.Name` (for screen readers) and `ToolTipService.ToolTip` (for hover) must be bound to a property on the underlying data model (like `OperationControl.OptionsTooltip`) to properly utilize the localization engine (`CoreTools.Translate()`).
+**Action:** Always bind accessibility strings to localized string properties on the ViewModel/Model instead of hardcoding, particularly for controls initialized inside a DataTemplate, to ensure full accessibility and localization support.

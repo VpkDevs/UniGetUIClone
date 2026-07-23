@@ -32,6 +32,7 @@ public partial class OperationControl : INotifyPropertyChanged
     public BetterMenu OpMenu;
     public OperationStatus? MenuStateOnLoaded;
     public ObservableCollection<OperationBadge> Badges = [];
+    public string OptionsTooltip => CoreTools.Translate("More options");
     private int _errorCount;
 
     public OperationControl(AbstractOperation operation)
