@@ -484,7 +484,7 @@ namespace UniGetUI.Interface
                 // Add added packages
                 foreach (var package in packagesChangedEvent.AddedPackages)
                 {
-                    if (WrappedPackages.Any(w => w.Package.Equals(package)))
+                    if (WrappedPackages.Where(w => w.Package.Equals(package)).Any())
                         continue;
 
                     WrappedPackages.Add(new PackageWrapper(package, this));
@@ -1064,8 +1064,8 @@ namespace UniGetUI.Interface
         /// </summary>
         public void UpdatePackageCount()
         {
-            var selected = FilteredPackages.Count(p => p.IsChecked);
-            var unSelected = FilteredPackages.Count(p => !p.IsChecked);
+            var selected = FilteredPackages.Where(p => p.IsChecked).Count();
+            var unSelected = FilteredPackages.Where(p => !p.IsChecked).Count();
             if (selected is 0 && unSelected is not 0)
                 SelectAllCheckBox.IsChecked = false;
             else if (selected is not 0 && unSelected is 0)
