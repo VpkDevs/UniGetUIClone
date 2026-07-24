@@ -1,5 +1,6 @@
 using Microsoft.UI.Input;
 using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Automation;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Controls.Primitives;
 using UniGetUI.Controls;
@@ -66,6 +67,12 @@ namespace UniGetUI.Interface
         public MainView(AutoSuggestBox mainTextBlock)
         {
             InitializeComponent();
+
+            ToolTipService.SetToolTip(ExpandCollapseOpList, CoreTools.Translate("Collapse operation list"));
+            AutomationProperties.SetName(ExpandCollapseOpList, CoreTools.Translate("Collapse operation list"));
+            ToolTipService.SetToolTip(OperationSplitterMenuButton, CoreTools.Translate("Operation list options"));
+            AutomationProperties.SetName(OperationSplitterMenuButton, CoreTools.Translate("Operation list options"));
+
             MainTextBlock = mainTextBlock;
             OperationList.ItemContainerTransitions = null;
             OperationList.ItemsSource = MainApp.Operations._operationList;
@@ -505,12 +512,16 @@ namespace UniGetUI.Interface
             {
                 isCollapsed = false;
                 ExpandCollapseOpList.Content = new FontIcon { Glyph = "\uE96E", FontSize = 14 };
+                ToolTipService.SetToolTip(ExpandCollapseOpList, CoreTools.Translate("Collapse operation list"));
+                AutomationProperties.SetName(ExpandCollapseOpList, CoreTools.Translate("Collapse operation list"));
                 UpdateOperationsLayout();
             }
             else
             {
                 isCollapsed = true;
                 ExpandCollapseOpList.Content = new FontIcon { Glyph = "\uE96D", FontSize = 14 };
+                ToolTipService.SetToolTip(ExpandCollapseOpList, CoreTools.Translate("Expand operation list"));
+                AutomationProperties.SetName(ExpandCollapseOpList, CoreTools.Translate("Expand operation list"));
                 UpdateOperationsLayout();
             }
         }
