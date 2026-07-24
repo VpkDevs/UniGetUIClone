@@ -283,7 +283,7 @@ namespace UniGetUI.PackageEngine.Serializable
             foreach (var listKey in _listKeys)
             {
                 var currentValue = _listVal[listKey];
-                if (currentValue.Where(x => x.Any()).Any())
+                if (currentValue.Any(x => x.Any()))
                 {
                     obj.Add(
                         listKey,
@@ -317,7 +317,7 @@ namespace UniGetUI.PackageEngine.Serializable
                     return true;
 
             foreach (var listKey in _listKeys)
-                if (_listVal[listKey].Where(x => x.Any()).Any())
+                if (_listVal[listKey].Any(x => x.Any()))
                     return true;
 
             return false;
@@ -365,7 +365,7 @@ namespace UniGetUI.PackageEngine.Serializable
             foreach (var listKey in _listKeys)
             {
                 var currentValue = _listVal[listKey];
-                if (currentValue.Where(x => x.Any()).Any())
+                if (currentValue.Any(x => x.Any()))
                 {
                     b.Append($"\n\t{listKey}: [{string.Join(", ", currentValue)}]");
                 }

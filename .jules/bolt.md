@@ -1,0 +1,3 @@
+## 2024-07-24 - Avoiding unnecessary LINQ allocations
+**Learning:** Found several instances of chained LINQ `.Where(predicate).Any()` and `.Where(predicate).Count()`. These chained methods create unnecessary intermediate `IEnumerable` state machine allocations. Additionally, using LINQ like `.Where(x => x == '.').Any()` on strings is far slower than highly optimized internal string searching.
+**Action:** Always refactor chained LINQ to single-pass `.Any(predicate)` and `.Count(predicate)`. For strings, prefer `.Contains(char)` over LINQ methods for single-character searches to utilize highly optimized internal string searching and completely avoid LINQ overhead.
