@@ -108,7 +108,7 @@ public partial class MainApp
 
                 string name = await package.GetInstallerFileName() ?? "";
                 string extension;
-                if (!name.Where(x => x == '.').Any())
+                if (!name.Contains('.'))
                 { // As a last resort, we need an extension for the file picker to work
                     extension = "unknown";
                     name = name + "." + extension;
